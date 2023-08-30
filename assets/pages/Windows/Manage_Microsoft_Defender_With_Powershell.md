@@ -17,8 +17,8 @@ Get-MpComputerStatus
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/1.get-mpcomputerstatus-cmmand_.jpg"/>
 
-> In addition to checking whether the antivirus is running, the command output also displays other important information, such as the version of the engine and product version, real-time protection status, last time updated, and more.
-{.is-info}
+> (Info) In addition to checking whether the antivirus is running, the command output also displays other important information, such as the version of the engine and product version, real-time protection status, last time updated, and more.
+
 
 <br>
 
@@ -31,8 +31,8 @@ Update-MpSignature
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/2.update-mpsignature-microsoft-defender-antivirus.jpg"/>
 
-> Once you complete the steps, if new updates are available, they will download and install on your device.
-{.is-info}
+> (Info) Once you complete the steps, if new updates are available, they will download and install on your device.
+
 
 <br>
 
@@ -45,8 +45,7 @@ Start-MpScan -ScanType QuickScan
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/3.microsoft-defender-quick-scann-powershell.jpg"/>
 
-> After you complete the steps, Microsoft Defender Antivirus will perform a quick virus scan on your device.
-{.is-info}
+> (Info) After you complete the steps, Microsoft Defender Antivirus will perform a quick virus scan on your device.
 
 <br>
 
@@ -59,8 +58,8 @@ Start-MpScan -ScanType FullScan
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/4.defender-av-fullscan-powershell.webp"/>
 
-> Once you complete the steps, Windows Defender will scan the entire system for any malware and malicious code.
-{.is-info}
+> (Info) Once you complete the steps, Windows Defender will scan the entire system for any malware and malicious code.
+
 
 <br>
 
@@ -71,21 +70,18 @@ Start-MpScan -ScanType FullScan
 ```Powershell
 Start-MpScan -ScanType CustomScan -ScanPath PATH\TO\FOLDER-FILES
 ```
-> In the command, make sure to update the path with the folder location you want to scan. For example, this command scans the Downloads folder:
-{.is-info}
+> (Info) In the command, make sure to update the path with the folder location you want to scan. For example, this command scans the Downloads folder:
 ```Powershell
 Start-MpScan -ScanType CustomScan -ScanPath "C:\Users\user\Downloads"
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/5.start-mpscan-custom-folder-powershell.jpg"/>
 
-> After you complete the steps, Microsoft Defender will only scan for viruses in the location you specified.
-{.is-info}
+> (Info) After you complete the steps, Microsoft Defender will only scan for viruses in the location you specified.
 
 <br>
 
 ## How to perform offline virus scan with Microsoft Defender
-> Before proceeding, make sure to save any work you may have open, as the command will immediately restart the device to perform an offline scan.
-{.is-warning}
+> (!Warning!) Before proceeding, make sure to save any work you may have open, as the command will immediately restart the device to perform an offline scan.
 
 1. Open Start
 2. Search for PowerShell, right-click the top result, and select the Run as administrator option
@@ -93,8 +89,8 @@ Start-MpScan -ScanType CustomScan -ScanPath "C:\Users\user\Downloads"
 ```Powershell
 Start-MpWDOScan
 ```
-> Once you complete the steps, the device will restart automatically. It'll boot into the recovery environment, and it'll perform a full scan to remove viruses that otherwise wouldn't be possible to detect during the normal operation of Windows 10. After the scan, the device will restart automatically, and then you can view the scan report on Windows Security > Virus & thread protection > Protection history.
-{.is-info}
+> (Info) Once you complete the steps, the device will restart automatically. It'll boot into the recovery environment, and it'll perform a full scan to remove viruses that otherwise wouldn't be possible to detect during the normal operation of Windows 10. After the scan, the device will restart automatically, and then you can view the scan report on Windows Security > Virus & thread protection > Protection history.
+
 
 <br>
 
@@ -108,7 +104,6 @@ Remove-MpThreat
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/6.remove-active-virus-powershell.jpg"/>
 
 > After you complete the steps, the anti-malware solution will eliminate any active threats on the computer. Although this is an interesting command, it'll only work for threats that the antivirus hasn't already mitigated.
-{.is-success}
 
 <br>
 
@@ -121,8 +116,7 @@ Get-MpPreference
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/7.microsoft-defender-preferences-powershell-command.jpg"/>
 
-> Once you complete the steps, you'll understand all the settings that you can configure with the built-in antivirus. The following commands are some examples of the preferences that you can customize using PowerShell.
-{.is-info}
+> (Info) Once you complete the steps, you'll understand all the settings that you can configure with the built-in antivirus. The following commands are some examples of the preferences that you can customize using PowerShell.
 
 <br>
 
@@ -199,8 +193,7 @@ Set-MpPreference -RemediationScheduleTime 06:00:00
 6 – Friday
 7 – Saturday
 8 – Never
-> When setting RemediationScheduleDate this is a numerical value that coincides with the specific day that you wish to run the scan on. See the list above for more details
-{.is-info}
+> (Info) When setting RemediationScheduleDate this is a numerical value that coincides with the specific day that you wish to run the scan on. See the list above for more details
 
 **Remove Schedule**
 ```Powershell
