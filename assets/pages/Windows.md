@@ -18,57 +18,57 @@
 <br>
 
 ## IIS
-[- Clear IIS Log Files](/Windows/IISLogClean)
+[- Clear IIS Log Files](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISLogClean.md)
 
 <br>
 
 ## Powershell
-[- Password Generator](/Windows/Powershell-PW-Generator)
+[- Password Generator](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-PW-Generator.md)
 
-[- Using Get-NetTCPConnection instead of Netstat](/Windows/Powershell-NetTCPConnection)
+[- Using Get-NetTCPConnection instead of Netstat](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-NetTCPConnection.md)
 
-[- Manage Microsoft Defender Antivirus with PowerShell](/Windows/Manage_Microsoft_Defender_With_Powershell)
+[- Manage Microsoft Defender Antivirus with PowerShell](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Manage_Microsoft_Defender_With_Powershell.md)
 
-[- Output IPs connecting to Specific port every 30 seconds](/Windows/Output-IPs-on-Port-Every-30-Seconds)
+[- Output IPs connecting to Specific port every 30 seconds](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Output-IPs-on-Port-Every-30-Seconds.md)
 
-[- List SSL Certificates](/Windows/Powershell-List-Certs)
+[- List SSL Certificates](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-List-Certs.md)
 
-[- Change RDP Certificate](/Windows/Powershell-RDP-Cert)
+[- Change RDP Certificate](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-RDP-Cert.md)
 
-[- Find .NET Framework Versions](/Windows/Dot-Net-Framework-Versions)
+[- Find .NET Framework Versions](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Dot-Net-Framework-Versions.md)
 
-[- Useful Powershell Commands](/Windows/Powershell-Commands)
+[- Useful Powershell Commands](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-Commands.md)
 <br>
 
 ## RDP
-[- RDP Brute Force Check](/Windows/RDPBruteForceCheck)
+[- RDP Brute Force Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDPBruteForceCheck.md)
 
 <br>
 
 ## RDS/Remote Desktop Services
-[- RDS Long Login Times/Black Screen Fix](/Windows/RDSBlackScreenFix)
+[- RDS Long Login Times/Black Screen Fix](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDSBlackScreenFix.md)
 
-[- RDS Start Menu and Apps not loading (Firewall)](/Windows/RDSStartAppReset)
+[- RDS Start Menu and Apps not loading (Firewall)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDSStartAppReset.md)
 
-[- RDS Cal Usage](/Windows/RDSCalUsage)
+[- RDS Cal Usage](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDSCalUsage.md)
 
-[- Installing an SSL Certificate onto RDWeb Apps](/Windows/RDWebSSL)
+[- Installing an SSL Certificate onto RDWeb Apps](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDWebSSL.md)
 
 <br>
 
 ## General OS Stuff
-[- Install RSAT Windows 10+](/Windows/InstallRSATW10+)
+[- Install RSAT Windows 10+](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/InstallRSATW10+.md)
 
-[- Install Microsoft Store Apps without using the store](/Windows/BypassMSStore)
+[- Install Microsoft Store Apps without using the store](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/BypassMSStore.md)
 
-[- Find what Windows Updates were installed](/Windows/FindWindowsUpdates)
+[- Find what Windows Updates were installed](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindWindowsUpdates.md)
 
-[- Finding the cause of a reboot](/Windows/FindRebootCause)
+[- Finding the cause of a reboot](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindRebootCause.md)
 
-[- Control Prompt and Applications as System](/Windows/SystemCMDandApps)
+[- Control Prompt and Applications as System](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/SystemCMDandApps.md)
 
-[- Server manager - Online - data retrieval failures](/Windows/ServerManager-DataRetrievalFailure)
+[- Server manager - Online - data retrieval failures](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ServerManager-DataRetrievalFailure.md)
 
-[- [Boot-Issue]VMWare-PVSCSI-Controller](/Windows/[Boot-Issue]VMWare-PVSCSI-Controller)
+[- Boot-Issue - VMWare-PVSCSI-Controller](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/[Boot-Issue]VMWare-PVSCSI-Controller.md)
 
-[- Nothing to See here](/Windows/Development)
+[- Nothing to See here](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Development.md)
