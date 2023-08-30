@@ -2,7 +2,6 @@
 ## This wiki will list some useful powershell commands
 
 > The following scripts should be run from within Powershell ISE
-{.is-info}
 
 <br>
 
