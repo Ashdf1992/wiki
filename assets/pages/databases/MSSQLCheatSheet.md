@@ -140,14 +140,11 @@ order by record_id desc
 
 
 ## SPBlitz
-## SPBlitz {.tabset}
 ### Run First (sp_Blitz.sql)
 [sp_Blitz Download](/mssql_functions/sp_blitz.sql)
 
-
 ### Version 1 SPBlitz Server Health Check
 > SQL Server healthcheck
-{.is-info}
 ```SQL
 sp_blitz;
 GO
@@ -155,7 +152,6 @@ GO
 
 ### Version 2 SPBlitz with Server Info
 > Adds additional rows at priority 250 with server configuration
-{.is-info}
 ```SQL
 sp_blitz @CheckServerInfo = 1;
 GO
@@ -163,7 +159,6 @@ GO
 
 ### Version 3 SPBlitz Critical Issues Only
 > Ignore everything over priority 50, "only critical issues"
-{.is-info}
 ```SQL
 sp_blitz @IgnorePrioritiesAbove = 50;
 GO
@@ -171,7 +166,6 @@ GO
 
 ### Version 4 SPBlitz Disable Checking User Databases
 > Disables checks inside of user databases
-{.is-info}
 ```SQL
 sp_blitz @CheckUserDatabaseObjects = 0;
 GO
@@ -179,20 +173,17 @@ GO
 
 ### Version 5 SPBlitz Check User Databases (if Number of DBs is greater than 50
 > Required for checking inside user databases if there's more than 50
-{.is-info}
 ```SQL
 sp_blitz @BringThePain = 1;
 GO
 ```
 
 ## SPBlitzCache
-## SPBlitzCache {.tabset}
 ### Run First (sp_BlitzCache.sql)
 [sp_BlitzCache Download](/mssql_functions/sp_blitzcache.sql)
 
 ### Version 1 SPBlitzCache Standard
 > Looks at the plan cache and displays the 10 most expensive queries sorted by cumulative CPU run time
-{.is-info}
 ```SQL
 sp_blitzcache;
 GO
@@ -200,7 +191,6 @@ GO
 
 ### Version 2 SPBlitzCache Exclude XML (easier working with excel)
 > Doesn't return XML fields that make copying into Excel awkward
-{.is-info}
 ```SQL
 sp_blitzcache @ExportToExcel = 1;
 GO
@@ -208,21 +198,17 @@ GO
 
 ### Version 3 SPBlitzCache Change Sort Order
 > SPBlitzCache Sort Order can be one of the following, change the command to match (reads / CPU / executions / XPM / recent compliations / writes / memory grant)
-{.is-info}
 ```SQL
 sp_blitzcache @SortOrder = Reads;
 GO
 ```
 
 ## SPBlitzFirst
-## SPBlitzFirst {.tabset}
 ### Run First (sp_BlitzFirst.sql)
 [sp_BlitzFirst Download](/mssql_functions/sp_blitzfirst.sql)
 
 ### Version 1 SPBlitzFirst Standard
 > Takes a sample of data, waits 5 seconds, takes another sample and compares
-{.is-info}
-
 ```SQL
 sp_blitzfirst;
 GO
@@ -230,8 +216,6 @@ GO
 
 ### Version 2 SPBlitzFirst Expert Mode
 > Additional metrics, wait stats, perfmon counters, file stats
-{.is-info}
-
 ```SQL
 sp_blitzfirst @ExpertMode = 1;
 GO
@@ -239,7 +223,6 @@ GO
 
 ### Version 3 SPBlitzFirst Change runtime duration
 > Changes how long it runs for.
-{.is-info}
 ```SQL
 sp_blitzfirst @ExpertMode = 1 , @Seconds = 60;
 GO
@@ -247,36 +230,29 @@ GO
 
 ### Version 4 SPBlitzFirst Since Start up
 > Show wait stats for duration of time server has been up / since wait stats have been cleared
-{.is-info}
 ```SQL
 sp_blitzfirst @SinceStartup = 1;
 GO
 ```
 
 ## SPBlitzWhoIsActive
-## SPBlitzWhoIsActive {.tabset}
 ### Run First (sp_WhoIsActive.sql)
 [sp_WhoIsActive Download](/mssql_functions/sp_whoisactive.sql)
 
 ### Version 1 SPBlitzWhoIsActive Standard
 > Show current running queries
-{.is-info}
-
 ```SQL
 sp_whoisactive;
 ```
 
 ### Version 2 SPBlitzWhoIsActive Average runtime
 > Display average run time from plan cache for shown queries 
-{.is-info}
-
 ```SQL
 sp_whoisactive @get_avg_time = 1;
 ```
 
 ### Version 3 SPBlitzWhoIsActive Get Locks
 > Will show what queries are locking each other
-{.is-info}
 ```SQL
 sp_whoisactive @get_locks = 1;
 ```
