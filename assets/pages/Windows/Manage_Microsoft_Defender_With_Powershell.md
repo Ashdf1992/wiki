@@ -15,7 +15,7 @@ You can manage settings and control virtually any aspect of the Microsoft Defend
 ```Powershell
 Get-MpComputerStatus
 ```
-<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/1.get-mpcomputerstatus-cmmand_.jpg" width="250"/>
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/1.get-mpcomputerstatus-cmmand_.jpg"/>
 
 > In addition to checking whether the antivirus is running, the command output also displays other important information, such as the version of the engine and product version, real-time protection status, last time updated, and more.
 {.is-info}
