@@ -1,5 +1,7 @@
 ## Windows
-My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+My favorite search engine is [Windows](https://github.com/Ashdf1992/wiki/blob/main/Windows.md).
+
+
 [Windows]([(https://github.com/Ashdf1992/wiki/blob/main/Windows.md)]).
 
 ##[![Windows](/windows-icon-png-5814.png =250x)](/Windows)
