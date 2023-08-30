@@ -1,10 +1,7 @@
 # RDP Brute Force Check
 ## This wiki will highlight how to check for failed RDP logon attempts to your Windows Server
 
-
 > The following scripts should be run from within Powershell ISE
-
-<br>
 
 ## Version 1 Entire List
 > (Info) This version will simply provide you the number of failed login attempts over the past 24 hours.
