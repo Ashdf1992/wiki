@@ -19,4 +19,4 @@
 <br>
 
 ## Useful Websites
-[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/applications_internet.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux.md)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/applications_internet.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/UsefulLinks.md)
