@@ -9,14 +9,14 @@
 <br>
 
 ## Bacula
-[![Bacula](/bat.png =250x)](/Backups/Bacula)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/bat.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Bacula.md)
 
 <br>
 
 ## Databases
-[![Databases](/database.png =250x)](/databases/)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/database.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Databases.md)
 
 <br>
 
 ## Useful Websites
-[![Useful Websites](/applications_internet.png =250x)](https://home.xyz-studios.co.uk/)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/applications_internet.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux.md)
