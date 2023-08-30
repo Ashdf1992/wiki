@@ -70,5 +70,3 @@
 [- Server manager - Online - data retrieval failures](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ServerManager-DataRetrievalFailure.md)
 
 [- Boot-Issue - VMWare-PVSCSI-Controller](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/[Boot-Issue]VMWare-PVSCSI-Controller.md)
-
-[- Nothing to See here](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Development.md)
