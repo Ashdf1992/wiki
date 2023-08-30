@@ -178,6 +178,8 @@ sp_blitz @BringThePain = 1;
 GO
 ```
 
+<br>
+
 ## SPBlitzCache
 ### Run First (sp_BlitzCache.sql)
 [sp_BlitzCache Download](/mssql_functions/sp_blitzcache.sql)
@@ -202,6 +204,8 @@ GO
 sp_blitzcache @SortOrder = Reads;
 GO
 ```
+
+<br>
 
 ## SPBlitzFirst
 ### Run First (sp_BlitzFirst.sql)
@@ -234,6 +238,8 @@ GO
 sp_blitzfirst @SinceStartup = 1;
 GO
 ```
+
+<br>
 
 ## SPBlitzWhoIsActive
 ### Run First (sp_WhoIsActive.sql)
