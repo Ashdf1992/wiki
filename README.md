@@ -1,6 +1,5 @@
 ## Windows
-<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/windows-icon-png-5814.png" width="250"/>(https://github.com/Ashdf1992/wiki/blob/main/Windows.md)
-[!Windows[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/windows-icon-png-5814.png" width="250"/>]](image.png)
+[!Windows[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/windows-icon-png-5814.png" width="250"/>]]([image.png](https://github.com/Ashdf1992/wiki/blob/main/Windows.md))
 
 <br>
 
