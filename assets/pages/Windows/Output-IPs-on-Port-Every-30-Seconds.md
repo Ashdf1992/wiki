@@ -1,6 +1,5 @@
 # Output IPs connecting on Specific port every 30 seconds
 > Within Powershell ISE run the following
-{.is-info}
 ```Powershell
 while(1)
 {
