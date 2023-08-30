@@ -22,13 +22,13 @@ NOTE: If the URL contains '?activetab=pivot:overviewtab' simply remove it from t
 We need to convert the link to the actual Microsoft Store items. To do this we will use the website https://store.rg-adguard.net.
 
 Paste the URL and make sure you change the option RP to Retail
-![storebypass-1.png](/storebypass-1.png)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/storebypass-1.png"/>
 
 <br>
 
 ### Download the appxBundle
 After you clicked on the checked mark it will find all the related apps. Most of the time the results start with .Net Frameworks that are required for the app, but we can skip them. Somewhere in the middle, you will find the appxBundles for the Microsoft Remote Desktop App.
-![storebypass-2.png](/storebypass-2.png)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/storebypass-2.png"/>
 
 <br>
 
@@ -48,4 +48,3 @@ Add-AppxPackage -Path "c:\temp\Microsoft.RemoteDesktop_2022.812.1727.0_neutral__
 <br>
 
 > Microsoft Remote Desktop App should now be installed without the need for the store.
-{.is-success}
