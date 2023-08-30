@@ -3,11 +3,11 @@
 <br>
 
 ## Active Directory
-[- Basic AD Checks, Moving and Seizing Master Roles](/Windows/AD-Checks-Move-Seize-Master-Roles)
+[- Basic AD Checks, Moving and Seizing Master Roles](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Checks-Move-Seize-Master-Roles.md)
 
-[- Get DNS Servers for all Servers within a Domain](/Windows/AD-DNSServer-Check)
+[- Get DNS Servers for all Servers within a Domain](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-DNSServer-Check.md)
 
-[- Get AD Group Members](/Windows/AD-Group-Members)
+[- Get AD Group Members](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Group-Members.md)
 
 
 <br>
