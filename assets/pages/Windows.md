@@ -1,6 +1,4 @@
-![windows-icon-png-5814.png](/assets/images/windows-icon-png-5814.png  =250x){.align-center}
-![windows-icon-png-5814.png](/windows-icon-png-5814.png  =250x){.align-center}
-
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/windows-icon-png-5814.png" width="250"/>]{.align-center}
 
 <br>
 
