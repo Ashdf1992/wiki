@@ -14,6 +14,7 @@ Load up Powershell ISE and then paste the below 2 commands
 $failLogs = Get-EventLog -LogName Security -InstanceId 4625 -After ((Get-Date).AddDays(-1)) | Select-Object TimeGenerated, Index, InstanceId, @{n='Username';e={$_.ReplacementStrings[5]}}
 $failLogs.count
 ```
+---
 
 ## Version 2 IPs
 > (Info) This version will show the IPs that have failed to log in more than 5 times within the past 24 hours.
@@ -27,6 +28,7 @@ Then run the next 2 commands
 $getip = $badRDPlogons | group-object -property IpAddress | where {$_.Count -gt 5} | Select -ExpandProperty Name
 $getip
 ```
+---
 
 ## Version 3 AutoBan
 > (Info) This version will automatically ban the IP Addresses that have failed to login using RDP, in the last 24 hours.
