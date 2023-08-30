@@ -1,5 +1,5 @@
 ## Windows
-My favorite search engine is [Windows](https://github.com/Ashdf1992/wiki/blob/main/Windows.md).
+[Windows](https://github.com/Ashdf1992/wiki/blob/main/Windows.md).
 
 
 [Windows]([(https://github.com/Ashdf1992/wiki/blob/main/Windows.md)]).
