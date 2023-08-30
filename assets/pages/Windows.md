@@ -6,11 +6,7 @@
 ## Active Directory
 [- Basic AD Checks, Moving and Seizing Master Roles](/Windows/AD-Checks-Move-Seize-Master-Roles)
 
----
-
 [- Get DNS Servers for all Servers within a Domain](/Windows/AD-DNSServer-Check)
-
----
 
 [- Get AD Group Members](/Windows/AD-Group-Members)
 
