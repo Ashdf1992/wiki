@@ -29,7 +29,7 @@ Get-MpComputerStatus
 ```Powershell
 Update-MpSignature
 ```
-![2.update-mpsignature-microsoft-defender-antivirus.jpg](/images/2.update-mpsignature-microsoft-defender-antivirus.jpg)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/2.update-mpsignature-microsoft-defender-antivirus.jpg"/>
 
 > Once you complete the steps, if new updates are available, they will download and install on your device.
 {.is-info}
@@ -43,7 +43,7 @@ Update-MpSignature
 ```Powershell
 Start-MpScan -ScanType QuickScan
 ```
-![3.microsoft-defender-quick-scann-powershell.jpg](/images/3.microsoft-defender-quick-scann-powershell.jpg)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/3.microsoft-defender-quick-scann-powershell.jpg"/>
 
 > After you complete the steps, Microsoft Defender Antivirus will perform a quick virus scan on your device.
 {.is-info}
@@ -57,7 +57,7 @@ Start-MpScan -ScanType QuickScan
 ```Powershell
 Start-MpScan -ScanType FullScan
 ```
-![4.defender-av-fullscan-powershell.webp](/images/4.defender-av-fullscan-powershell.webp)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/4.defender-av-fullscan-powershell.webp"/>
 
 > Once you complete the steps, Windows Defender will scan the entire system for any malware and malicious code.
 {.is-info}
@@ -76,7 +76,7 @@ Start-MpScan -ScanType CustomScan -ScanPath PATH\TO\FOLDER-FILES
 ```Powershell
 Start-MpScan -ScanType CustomScan -ScanPath "C:\Users\user\Downloads"
 ```
-![5.start-mpscan-custom-folder-powershell.jpg](/images/5.start-mpscan-custom-folder-powershell.jpg)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/5.start-mpscan-custom-folder-powershell.jpg"/>
 
 > After you complete the steps, Microsoft Defender will only scan for viruses in the location you specified.
 {.is-info}
@@ -105,7 +105,7 @@ Start-MpWDOScan
 ```Powershell
 Remove-MpThreat
 ```
-![6.remove-active-virus-powershell.jpg](/images/6.remove-active-virus-powershell.jpg)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/6.remove-active-virus-powershell.jpg"/>
 
 > After you complete the steps, the anti-malware solution will eliminate any active threats on the computer. Although this is an interesting command, it'll only work for threats that the antivirus hasn't already mitigated.
 {.is-success}
@@ -119,7 +119,7 @@ Remove-MpThreat
 ```Powershell
 Get-MpPreference
 ```
-![7.microsoft-defender-preferences-powershell-command.jpg](/images/7.microsoft-defender-preferences-powershell-command.jpg)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/7.microsoft-defender-preferences-powershell-command.jpg"/>
 
 > Once you complete the steps, you'll understand all the settings that you can configure with the built-in antivirus. The following commands are some examples of the preferences that you can customize using PowerShell.
 {.is-info}
