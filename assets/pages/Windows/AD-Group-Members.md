@@ -1,6 +1,5 @@
 # Get AD Group Members
 
-# Tabs {.tabset}
 ## Version 1 Output to console
 
 > This version will simply Output the results to the console.
