@@ -2,8 +2,7 @@
 
 ## Version 1 Output to console
 
-> This version will simply Output the results to the console.
-{.is-info}
+> (Info) This version will simply Output the results to the console.
 
 ```Powershell
  $OU = "Domain Admins","Schema Admins","Enterprise Admins"
@@ -16,8 +15,7 @@ foreach ($o in $ou)
 ```
 ## Version 2 Output to CSV
 
-> This version will output the results to a CSV
-{.is-info}
+> (Info) This version will output the results to a CSV
 
 ```Powershell
  $OU = "Domain Admins","Schema Admins","Enterprise Admins"
