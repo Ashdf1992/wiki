@@ -4,7 +4,7 @@
 <br>
 
 ## Linux
-[![Linux](/linux-icon-28163.png =250x)](/Linux/)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/linux-icon-28163.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/Linux.md)
 
 <br>
 
