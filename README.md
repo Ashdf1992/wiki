@@ -14,7 +14,7 @@
 <br>
 
 ## Databases
-[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/database.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Databases.md)
+[<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/database.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Database.md)
 
 <br>
 
