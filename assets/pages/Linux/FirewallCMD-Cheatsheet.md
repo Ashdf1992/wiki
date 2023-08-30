@@ -1,7 +1,6 @@
 # Firewall-CMD Cheatsheet
 
 > Note that most of the commands above will use the 'Public' Zone. This will need to be tailored to the zone you wish to manage. 
-{.is-info}
 
 <br>
 
