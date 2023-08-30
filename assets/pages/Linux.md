@@ -1,4 +1,5 @@
-![linux-icon-28163.png](/linux-icon-28163.png  =250x){.align-center}
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/linux-icon-28163.png" width="250"/>
+
 # Linux Wiki
 ### Welcome to the Linux Wiki. Here you should be able to find different sections to do with Linux
 
