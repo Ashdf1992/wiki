@@ -8,5 +8,4 @@ while(1)
    start-sleep -seconds 30
 }
 ```
-> Note that you can change LocalPort to be whatever port you require. The output will be to a CSV file declared within the Export-CSV section
-{.is-info}
+> (Info) Note that you can change LocalPort to be whatever port you require. The output will be to a CSV file declared within the Export-CSV section
