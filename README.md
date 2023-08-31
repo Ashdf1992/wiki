@@ -1,5 +1,5 @@
 ## Windows
-[<img src="./docs/assets/images/windows-icon-png-5814.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows.md)
+[<img src="./docs/assets/windows-icon-png-5814.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows.md)
 
 <br>
 
