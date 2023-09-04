@@ -65,6 +65,8 @@
 
 [- Finding the cause of a reboot](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindRebootCause.md)
 
+[- Checking for Resource Exhaustion on Windows](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ResourceExhaustion.md)
+
 [- Control Prompt and Applications as System](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/SystemCMDandApps.md)
 
 [- Server manager - Online - data retrieval failures](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ServerManager-DataRetrievalFailure.md)
