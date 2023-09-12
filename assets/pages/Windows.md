@@ -13,7 +13,7 @@
 <br>
 
 ## Exchange
-*Under Construction*
+[- Exchange Cheat Sheet](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ExchangeCheatSheet.md)
 
 <br>
 
