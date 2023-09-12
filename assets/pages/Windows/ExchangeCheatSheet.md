@@ -25,7 +25,7 @@ Get-MailboxDatabase -Status | sort $Sort | select name,@{Name='DB Size (Gb)';Exp
 ## Move a Mailbox
 ```Powershell
 $MailboxtoMove = Read-Host "Enter the Mailbox you want to move: (eg ash@xyz.co.uk)"
-$TargetDB = Read-Host "What Database do you want to move the Mailbox to: (eg XYZ-DB18)"
+$TargetDB = Read-Host "What Database do you want to move the Mailbox to: (eg XYZ-DB1)"
 New-MoveRequest "$MailboxtoMove" -TargetDatabase "$TargetDB" -Priority Emergency -BadItemLimit 20
 ```
 
