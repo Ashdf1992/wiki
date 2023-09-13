@@ -97,3 +97,6 @@ Get-MoveRequest -MoveStatus Completed | Remove-MoveRequest
 $MailboxtoRemove = Read-Host "Enter the Completed Move request that you wish to remove: (eg ash@xyz.co.uk)"
 Remove-MoveRequest $MailboxtoRemove
 ```
+
+## Microsoft Exchange Health Check Script. 
+https://github.com/microsoft/CSS-Exchange/releases/latest/download/HealthChecker.ps1
