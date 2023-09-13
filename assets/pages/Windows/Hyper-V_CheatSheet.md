@@ -18,13 +18,14 @@ Get-VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expressio
 ## Mini Report - 1 VM
 ```Powershell
 Get-VM | Select Name
-$VM = Read-Host "Enter a VM from the list Above to Check. Just copy and paste. "  > $null
+$VM = Read-Host "Enter a VM from the list Above to Check. Just copy and paste. "
 Clear
 Write-Host "CPU:"
-Get-VM $VM | Get-VMProcessor | Select VMName,Count  > $null
+Get-VM $VM | Get-VMProcessor | Select VMName,Count
 Write-Host ""
 Write-Host "Memory Allocation:"
-Get-VM $VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1mb -as [int]}}  > $null
+Get-VM $VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1mb -as [int]}}
 Write-Host ""
 Write-Host "Disk Allocation:"
-Get-VM $VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}  > $null
+Get-VM $VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}
+pause
