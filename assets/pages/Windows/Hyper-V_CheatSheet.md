@@ -18,7 +18,7 @@ Get-VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expressio
 ## Mini Report - 1 VM
 ```Powershell
 Get-VM | Select Name
-$VM = Read-Host "Enter a VM from the list Above to Check. Just copy and paste. "
+$VM = Read-Host "Enter a VM from the list Above to Check. Just copy and paste. "  > $null
 Clear
 Write-Host "CPU:"
 Get-VM $VM | Get-VMProcessor | Select VMName,Count  > $null
