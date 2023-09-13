@@ -28,4 +28,4 @@ Get-VM $VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassi
 Write-Host ""
 Write-Host "Disk Allocation:"
 Get-VM $VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}
-pause
+Write-Host "Complete!"
