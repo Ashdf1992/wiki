@@ -1,7 +1,7 @@
 # LVM Resize
 ## To expand an LVM Partition on Linux Carry out the following steps. 
 
-```Bash
+``` Bash
 NOTE: (x is the partition you want to resize)
 growpart /dev/sda x 
 lsblk
