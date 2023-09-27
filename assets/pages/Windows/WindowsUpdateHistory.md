@@ -1,6 +1,6 @@
 # Full Windows Update History
 
-## Powershell
+## Function
 >Open Powershell or Powershell ISE
 
 >Run the Following
@@ -50,6 +50,23 @@ $history |
 Where-Object {![String]::IsNullOrWhiteSpace($_.title)} |
 Select-Object Result, Date, Title, SupportUrl, Product, UpdateId, RevisionNumber
 }
-
+```
+## Get Full Windows Update Log:
+```Powershell
 Get-WuaHistory | Format-Table
+```
+
+## Get Failed Updates:
+```Powershell
+Get-WuaHistory | where {$_.result -eq "Failed"} | Select Result,Date,Title | Format-Table
+```
+
+## Get Successful Updates:
+```Powershell
+Get-WuaHistory | where {$_.result -eq "Succeeded"} | Select Result,Date,Title | Format-Table
+```
+
+## Get In-Progress/Reboot Pending Updates:
+```Powershell
+Get-WuaHistory | where {$_.result -eq "In-Progress/Reboot Pending"} | Select Result,Date,Title | Format-Table
 ```
