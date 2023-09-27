@@ -1,4 +1,4 @@
-# Finding the cause of a reboot
+# Finding Pending Reboot Reason
 
 ## Powershell
 >Open Powershell or Powershell ISE
