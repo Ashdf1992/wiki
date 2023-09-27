@@ -66,6 +66,8 @@
 
 [- Find what Windows Updates were installed](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindWindowsUpdates.md)
 
+[- Get Full Windows Update History](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WindowsUpdateHistory.md)
+
 [- Pending Reboot Reason](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/PendingRebootReason.md)
 
 [- Finding the cause of a reboot](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindRebootCause.md)
