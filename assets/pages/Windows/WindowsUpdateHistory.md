@@ -15,6 +15,11 @@ param( [Parameter(Mandatory=$true)]
 $Result = $ResultCode
 switch($ResultCode)
 {
+1
+{
+$Result = "In Progress/Pending Reboot"
+}
+{
 2
 {
 $Result = "Succeeded"
