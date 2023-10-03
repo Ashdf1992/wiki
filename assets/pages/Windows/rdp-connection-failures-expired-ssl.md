@@ -1,4 +1,4 @@
-# RDP Connection Failures: Expired Self-Signed Certificate
+#RDP Connection Failures: Expired Self-Signed Certificate
 
-## Issue
+##Issue
 Remote Desktop (RDP) connections begin to fail with no apparent cause.
