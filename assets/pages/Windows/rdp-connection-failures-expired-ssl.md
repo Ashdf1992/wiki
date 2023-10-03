@@ -12,7 +12,7 @@ This issue might have the following symptoms:
 ## Cause
 The following events could cause this issue:
 
-- The RDP self-signed certificate has expired or is missing (Windows® usually recreates the self-signed certificate upon expiration.
+- The RDP self-signed certificate has expired or is missing (Windows® usually recreates the self-signed certificate upon expiration.)
 - Permissions issues on the following path: C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\f686aace6942fb7f7ceb231212eef4a4. The parent folder did not allow the OS to delete the existing key, which needs to happen before self-signed certificate recreation.
 
 ## Resolution
