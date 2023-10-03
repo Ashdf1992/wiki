@@ -55,7 +55,7 @@
 
 [- RDS Cal Usage](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDSCalUsage.md)
 
-[- Installing an SSL Certificate onto RDWeb Apps](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDWebSSL.md)
+[- RDP Connection Failures: Expired Self-Signed Certificate](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/rdp-connection-failures-expired-ssl.md)
 
 <br>
 
