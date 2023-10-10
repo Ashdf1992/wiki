@@ -4,7 +4,7 @@
 
 ## License
 
- ï¿½ 2014 Microsoft Corporation. All rights reserved.
+ © 2014 Microsoft Corporation. All rights reserved.
 
 
 
@@ -14,11 +14,11 @@
 >
 > If you already have Microsoft Message Analyzer installed, you may continue to use it, along with the OPN parsers you have already downloaded. If you do want to continue using MMA, please make sure you have the latest versions of MMA and OPN parsers installed [...] 
 
-ï¿½ Microsoft Message Analyzer Blog, 11/11/2019 (https://docs.microsoft.com/en-us/openspecs/blog/ms-winintbloglp/dd98b93c-0a75-4eb0-b92e-e760c502394f)
+— Microsoft Message Analyzer Blog, 11/11/2019 (https://docs.microsoft.com/en-us/openspecs/blog/ms-winintbloglp/dd98b93c-0a75-4eb0-b92e-e760c502394f)
 
 > After November 25 2019 when MMA is launched, it will attempt to connect to the back-end Feed service to check News and Assets updates and an error message will appear. To dismiss this error message, see [the steps below].
 
-ï¿½ Microsoft Message Analyzer Operating Guide, 10/25/2016 (https://docs.microsoft.com/en-us/message-analyzer/microsoft-message-analyzer-operating-guide)
+— Microsoft Message Analyzer Operating Guide, 10/25/2016 (https://docs.microsoft.com/en-us/message-analyzer/microsoft-message-analyzer-operating-guide)
 
 
 
