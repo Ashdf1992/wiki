@@ -20,7 +20,10 @@
 
 � Microsoft Message Analyzer Operating Guide, 10/25/2016 (https://docs.microsoft.com/en-us/message-analyzer/microsoft-message-analyzer-operating-guide)
 
-
+## Downloads
+[64 Bit Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/tools/MessageAnalyzer/releases/1.4/MessageAnalyzer64.msi)
+<br>
+[32 Bit Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/tools/MessageAnalyzer/releases/1.4/MessageAnalyzer.msi)
 
 ## Layout
 
@@ -41,6 +44,3 @@
 
 
 
-## Downloads
-[64 Bit Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/tools/MessageAnalyzer/releases/1.4/MessageAnalyzer64.msi)
-[32 Bit Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/tools/MessageAnalyzer/releases/1.4/MessageAnalyzer.msi)
