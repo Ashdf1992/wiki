@@ -2,7 +2,9 @@
 
 ## General
 [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
+
 [Easy Robocopy](https://www.portablefreeware.com/index.php?id=3070)
+
 [Easy Robocopy Alternative Download](https://www.majorgeeks.com/files/details/easy_robocopy.html)
 [FullEventLogView](https://www.nirsoft.net/utils/full_event_log_view.html)
 [IISCrypto](https://www.nartac.com/Products/IISCrypto)
