@@ -31,6 +31,10 @@ $Result = "Succeeded With Errors"
 {
 $Result = "Failed"
 }
+5
+{
+$Result = "Aborted/Cancelled"
+}
 }
 return $Result
 }
