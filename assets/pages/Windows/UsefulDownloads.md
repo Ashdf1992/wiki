@@ -43,6 +43,8 @@
 
 [TronScript](https://old.reddit.com/r/TronScript/)
 
+[CMTrace](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/CMTrace.exe)
+
 
 
 ## Portable
