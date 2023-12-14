@@ -263,3 +263,32 @@ sp_whoisactive @get_avg_time = 1;
 sp_whoisactive @get_locks = 1;
 ```
 
+<br>
+
+## Display Database Names
+```SQL
+select name from sys.sysdatabases 
+order by name;
+```
+
+<br>
+
+## Display Database Names and File Paths
+```SQL
+SELECT
+    db.name AS DBName,
+    type_desc AS FileType,
+    Physical_Name AS Location
+FROM
+    sys.master_files mf
+INNER JOIN 
+    sys.databases db ON db.database_id = mf.database_id
+```
+
+<br>
+
+## Find wait on a Transaction log.
+```SQL
+SELECT name, log_reuse_wait_desc
+FROM sys.databases
+```
