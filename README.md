@@ -18,5 +18,10 @@
 
 <br>
 
+## Useful Downloads
+[<img src="./docs/assets/downloads-icon-15.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/UsefulDownloads.md)
+
+<br>
+
 ## Useful Websites
 [<img src="./docs/assets/applications_internet.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/UsefulLinks.md)
