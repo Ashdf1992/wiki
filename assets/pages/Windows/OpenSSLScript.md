@@ -33,7 +33,7 @@ $time = Get-Date
             Write-Host "5: Press '5' to Combine CRT and KEY to PFX";
             Write-Host "";
             Write-Host "";
-			Write-Host "6: Press '5' to Combine CRT, KEY and CA-Bundle (Chain) to PFX";
+            Write-Host "6: Press '5' to Combine CRT, KEY and CA-Bundle (Chain) to PFX";
             Write-Host "";
             Write-Host "";
             Write-Host "Q: Press 'Q' to quit.";
@@ -49,14 +49,14 @@ $time = Get-Date
                         cls
                         'You chose option #1'
                         $SSL = Read-Host "Please enter the name of the PFX Certificate you want to export the private key from, excluding the extension (eg www.supercars.co.uk): "
-						.\openssl.exe pkcs12 -in "$SSL.pfx" -nocerts -out "$SSL.key"
+			.\openssl.exe pkcs12 -in "$SSL.pfx" -nocerts -out "$SSL.key"
                     } 
 					
                 '2' {
                         cls
                         'You chose option #2'
                         $SSL = Read-Host "Please enter the name of the PFX Certificate you want to export the Certificate from, excluding the extension (eg www.supercars.co.uk): "
-						.\openssl pkcs12 -in "$SSL.pfx" -clcerts -nokeys -out "$SSL.crt"
+			.\openssl pkcs12 -in "$SSL.pfx" -clcerts -nokeys -out "$SSL.crt"
                     }
 
                 
@@ -64,33 +64,33 @@ $time = Get-Date
                         cls
                         'You chose option #3'
                         $SSL = Read-Host "Please enter the name of the KEY File that you wish to decrypt, excluding the extension (eg www.supercars.co.uk): "
-						.\openssl rsa -in "$SSL.key" -outform PEM -out "$SSL.decrypt.key"
+			.\openssl rsa -in "$SSL.key" -outform PEM -out "$SSL.decrypt.key"
                     } 
 					
 
                 '4' {
                        cls
-					   'You chose option #4'
-					   $SSL = Read-Host "Please enter the name of the p7b File that you wish to convert to CRT, excluding the extension (eg gd-g2_iis_intermediates): "
-					   .\openssl pkcs7 -print_certs -in "$SSL.p7b" -out "$SSL.crt"
+			'You chose option #4'
+			$SSL = Read-Host "Please enter the name of the p7b File that you wish to convert to CRT, excluding the extension (eg gd-g2_iis_intermediates): "
+			.\openssl pkcs7 -print_certs -in "$SSL.p7b" -out "$SSL.crt"
                     } 
                  
                 '5' {
                         cls
                         'You chose option #5'
-						$PFX = Read-Host "Please enter the desired name of the PFX file you wish to be created, excluding the extension (eg www.supercars-pfx-export): "
-						$DecyptedKey = Read-Host "Please enter the name of the Decypted Private Key, excluding the extension, also exclude .decypted (eg www.supercars.co.uk): "
-						$SSL = Read-Host "Please enter the name of the CRT File, excluding the extension (eg www.supercars.co.uk): "
+			$PFX = Read-Host "Please enter the desired name of the PFX file you wish to be created, excluding the extension (eg www.supercars-pfx-export): "
+			$DecyptedKey = Read-Host "Please enter the name of the Decypted Private Key, excluding the extension, also exclude .decypted (eg www.supercars.co.uk): "
+			$SSL = Read-Host "Please enter the name of the CRT File, excluding the extension (eg www.supercars.co.uk): "
                         .\openssl.exe pkcs12 -export -out "$PFX.pfx" -inkey "$DecyptedKey.decrypt.key" -in "$SSL.crt"
                     } 
 
                 '6' {
                         cls
                         'You chose option #5'
-						$PFX = Read-Host "Please enter the desired name of the PFX file you wish to be created, excluding the extension (eg www.supercars-pfx-export): "
-						$DecyptedKey = Read-Host "Please enter the name of the Decypted Private Key, excluding the extension (eg www.supercars.co.uk): "
-						$SSL = Read-Host "Please enter the name of the CRT File, excluding the extension (eg www.supercars.co.uk): "
-						$CABundle = Read-Host "Please enter the name of the CA Bundle, excluding the extension (eg gd-g2_iis_intermediates): "
+			$PFX = Read-Host "Please enter the desired name of the PFX file you wish to be created, excluding the extension (eg www.supercars-pfx-export): "
+			$DecyptedKey = Read-Host "Please enter the name of the Decypted Private Key, excluding the extension (eg www.supercars.co.uk): "
+			$SSL = Read-Host "Please enter the name of the CRT File, excluding the extension (eg www.supercars.co.uk): "
+			$CABundle = Read-Host "Please enter the name of the CA Bundle, excluding the extension (eg gd-g2_iis_intermediates): "
                         .\openssl.exe pkcs12 -export -out "$PFX.pfx" -inkey "$DecryptedKey.key" -in "$SSL.crt" -certfile "$CABundle.crt"
                     }     					
                                         					
