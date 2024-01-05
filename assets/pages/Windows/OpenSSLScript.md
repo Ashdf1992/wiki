@@ -102,3 +102,7 @@ $time = Get-Date
         }
 until ($input -eq 'q')
 ```
+
+## Alternatively, click here to go to the latest zip folder containing both the script and OpenSSL. Simply right click OpenSSLScript.ps1 and click on 'Run with PowerShell'
+[OpenSSL Powershell Script Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/OpenSSL-Script.zip)
+
