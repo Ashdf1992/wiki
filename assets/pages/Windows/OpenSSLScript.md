@@ -32,8 +32,7 @@ $time = Get-Date
             Write-Host "";
             Write-Host "5: Press '5' to Combine CRT and KEY to PFX";
             Write-Host "";
-            Write-Host "";
-            Write-Host "6: Press '5' to Combine CRT, KEY and CA-Bundle (Chain) to PFX";
+            Write-Host "6: Press '6' to Combine CRT, KEY and CA-Bundle (Chain) to PFX";
             Write-Host "";
             Write-Host "";
             Write-Host "Q: Press 'Q' to quit.";
@@ -86,7 +85,7 @@ $time = Get-Date
 
                 '6' {
                         cls
-                        'You chose option #5'
+                        'You chose option #6'
 			$PFX = Read-Host "Please enter the desired name of the PFX file you wish to be created, excluding the extension (eg www.supercars-pfx-export): "
 			$DecyptedKey = Read-Host "Please enter the name of the Decypted Private Key, excluding the extension (eg www.supercars.co.uk): "
 			$SSL = Read-Host "Please enter the name of the CRT File, excluding the extension (eg www.supercars.co.uk): "
