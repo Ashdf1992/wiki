@@ -22,6 +22,11 @@
 
 <br>
 
+## OpenSSL
+[- OpenSSL Script](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/OpenSSLScript.md)
+
+<br>
+
 ## Powershell
 [- Password Generator](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-PW-Generator.md)
 
