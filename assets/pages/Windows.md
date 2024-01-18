@@ -67,6 +67,8 @@
 ## General OS Stuff
 [- Install RSAT Windows 10+](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/InstallRSATW10+.md)
 
+[- WinRM HTTPS/TLS Config](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WinRMHTTPSConfigRunsheet.md)
+
 [- Microsoft Message Analyzer](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/tools/MessageAnalyzer/README.md)
 
 [- Install Microsoft Store Apps without using the store](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/BypassMSStore.md)
