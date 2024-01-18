@@ -1,9 +1,8 @@
 # WinRM HTTPS Config Runsheet
-## This wiki will take you through the process of configuring WinRM with an SSL Certificate bound to the listener on the server, and certificate based authentication between the Client and the Server
+## This wiki will take you through the process of configuring WinRM with an SSL Certificate bound to the listener on the server, and certificate based authentication between the Client and the Server. This guide will essentially be in 2 parts. The first part being the Server Configuration. The second part being the client configuration. In this example. I have a Windows Server 2022 client, that needs to connect to WinRM on a Windows Server 2022 Instance. Note that the following commands are to be ran from within Powershell or Powershell ISE (Easier for the script later)
 
-## This guide will essentially be in 2 parts. The first part being the Server Configuration. The second part being the client configuration. In this example. I have a Windows Server 2022 client, that needs to connect to WinRM on a Windows Server 2022 Instance. Note that the following commands are to be ran from within Powershell or Powershell ISE (Easier for the script later)
-
-Client = Windows Server 2022 – Win-Dev-01 
+Client = Windows Server 2022 – Win-Dev-01
+<br>
 Server = Windows Server 2022 – Win-Dev-02
 
 Note that these instructions can be ran on Windows Server 2012 R2 and above. Though please also note that this has only been tested on Windows Server 2022. Note that for each section, I will put into brackets which device, either Client or Server the section is targeted at
@@ -18,12 +17,14 @@ Note that these instructions can be ran on Windows Server 2012 R2 and above. Tho
 winrm quickconfig
 ```
 -Press Y when prompted
+<br>
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img1.png"/>
 
 <br>
 
 ### Disabling HTTP Connections(Server)
 The server is now listening for HTTP connections on port 5985. Clients cannot verify the server identity when using HTTP, so the HTTP connection method has to be disabled
+
 -To disable the HTTP connection method carry out the following:
 ```Powershell
 winrm delete WinRM/Config/Listener?Address=*+Transport=HTTP
