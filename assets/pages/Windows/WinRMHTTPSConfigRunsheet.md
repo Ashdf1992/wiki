@@ -1,4 +1,3 @@
-Under Construction
 # WinRM HTTPS Config Runsheet
 ## This wiki will take you through the process of configuring WinRM with an SSL Certificate bound to the listener on the server, and certificate based authentication between the Client and the Server
 
