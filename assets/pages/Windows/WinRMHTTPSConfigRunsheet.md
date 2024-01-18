@@ -50,6 +50,8 @@ winrm set WinRM/Config/Service/Auth '@{Basic="false";Kerberos="true";Negotiate="
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img4.png"/>
 
+<br>
+
 ### Create the Server Certificate (Server)
 Windows includes a cmdlet with which you can create self-signed certificates, but unfortunately certificates that can be used for WinRM authentication cannot be generated. Luckily there is a PowerShell script available that can generate usable certificates which can be downloaded using the following [Link](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/New-SelfSignedCertificateEx.ps1). Note that the file is stored within this wiki. 
 
@@ -58,11 +60,12 @@ Windows includes a cmdlet with which you can create self-signed certificates, bu
 . .\New-SelfSignedCertificateEx.ps1
 $serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostname>" -EnhancedKeyUsage '1.3.6.1.5.5.7.3.1' -StoreLocation LocalMachine -IsCA $true
 ```
-> (Important Info)
+<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img5.png"/>
+> (Important Note 1)
 ^ Note the space in between . .
 
+> (Important Note 2)
 ^ Change "CN=<(fully-qualified) hostname>". In my case, I will change it to  "CN=Win-Dev-02".
-<img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img5.png"/>
 
 The certificate has been added to Cert:\LocalMachine\My\ (the certificates identifying the server machine) and Cert:\LocalMachine\CA\ (certificate authorities (CAs) that are trusted on the server machine), using the thumbprint as the child name.
 -The thumbprint is going to be needed to verify whether the correct public key has been downloaded by clients, so display it and copy it somewhere:
@@ -70,6 +73,8 @@ The certificate has been added to Cert:\LocalMachine\My\ (the certificates ident
 $serverCert
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img6.png"/>
+
+<br>
 
 ### Enabling a Secure WinRM Listener (Server)
 -The final step for the Windows server is the addition of a secure WinRM listener. Execute the following command to create the listener. The hostname must match the hostname used when creating the server certificate, the thumbprint is the thumbprint of the SSL Certificate you generated above. 
@@ -79,9 +84,11 @@ winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname="host_na
 ```
 
 [Powershell]
+
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img7.png"/>
 
 [Command Prompt]
+
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img8.png"/>
 
 > That is it for the server configuration. We will return to the server when a local administrator for client connections has to be created
