@@ -297,12 +297,19 @@ FROM sys.databases
 
 ## Check  SQL Database states
 > Note: You will need to change 'db.state' to the state that you are looking for from the following list, in  this example, I am looking at Database with the State 'RECOVERING'
+<br>
 0 = ONLINE
+<br>
 1 = RESTORING
+<br>
 2 = RECOVERING
+<br>
 3 = RECOVERY_PENDING
+<br>
 4 = SUSPECT
+<br>
 5 = EMERGENCY
+<br>
 6 = OFFLINE
 ```SQL
 SELECT *
