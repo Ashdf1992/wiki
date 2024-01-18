@@ -7,6 +7,7 @@ Server = Windows Server 2022 – Win-Dev-02
 
 Note that these instructions can be ran on Windows Server 2012 R2 and above. Though please also note that this has only been tested on Windows Server 2022. Note that for each section, I will put into brackets which device, either Client or Server the section is targeted at
 
+<br>
 
 ## Server Configuration
 > This part of the guide is in relation to the configuration of the server, that you are connecting to, from the client. 
@@ -91,16 +92,20 @@ winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname="host_na
 
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img8.png"/>
 
-> That is it for the server configuration. We will return to the server when a local administrator for client connections has to be created
+That is it for the server configuration. We will return to the server when a local administrator for client connections has to be created
 
 <br>
 <br>
 
 ## Client Configuration
-> Congratulations, you made it this far. This part of the guide is in relation to the client-side configuration. Essentially, the computer you want to use to remote connect to the server
+Congratulations, you made it this far. This part of the guide is in relation to the client-side configuration. Essentially, the computer you want to use to remote connect to the server
+
+<br>
 
 ### Making Sure the Server Hostname and Server Certificate Subject Match (Client)
 -It is important that the server hostname that you use matches the subject of the certificate. If they don not match the client will refuse to make a connection. If the server hostname cannot be mapped to an IP address by the DNS or WINS server on your network, you need to add a mapping to an IP address to C:\Windows\System32\drivers\etc\hosts manually. This file can only be changed by an administrator. In my case, the servers are not domain joined, so I will need to add a host entry for 10.0.0.5 – Win-Dev-02. 
+
+<br>
 
 ### Ensuring the Client Uses Secure Authentication Methods (Client)
 -Firstly, we want to ensure that the WinRM Service is running:
@@ -119,6 +124,8 @@ Get-Service WinRM
 winrm set WinRM/Config/Client/Auth '@{Basic="false";Kerberos="true";Negotiate="true";Certificate="true";CredSSP="false"}'
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img10.png"/>
+
+<br>
 
 ### Install Certificate Authority Certificate of the Server onto the Client (Client)
 -In this step the server certificate is retrieved, but it cannot be verified using the existing known certificate authorities. Verify the thumbprint manually to ensure that you are installing the correct server certificate as a certificate authority. After installing the certificate as a certificate authority, all certificates signed by that certificate will be accepted without user notification or confirmation. The certificate of the server can simply be downloaded by sending an HTTP request to the WinRM HTTPS endpoint on the server. The request will fail (the error is caught and ignored) because the server certificate cannot be verified, but the request will contain the unverifiable certificate afterwards. The thumbprint of the retrieved certificate is verified manually below, note that at this point, you need to have changed your host file if required to point towards the Server:
@@ -145,6 +152,8 @@ $store.Close()
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img13.png"/>
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img14.png"/>
 
+<br>
+
 ### Create Certificate for the Client (Client)
 -Just like the server the client needs a certificate, so the server can verify the identity of the client. Unlike on the server, the standard PowerShell cmdlet can be used to generate the client certificate. Every certificate identifies a subject. The subject name can be anything. To make identifying certificates easier, you can, for example, include the client hostname or the certificate purpose. A good value for the subject name is your Windows username or Microsoft Account email address. In this case we need to change the subject and the upn=:
 ```Powershell
@@ -164,6 +173,8 @@ Export the (public part) of the certificate to a file, so it can be transferred 
 Export-Certificate -Cert Cert:\CurrentUser\My\<fingerprint> -FilePath <export file path>.crt
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img17.png"/>
+
+<br>
 
 ### Install Certificate of the Client onto the Server (Server)
 -Copy the exported client certificate to the server. You can use insecure methods to do this, because the certificate only contains a public key. As the name implies, having other people know this key does not pose a security risk. Note that in my case, I have simply copied the SSL Cert for the Client from C:\Win-Dev-01.crt and placed the certificate into the root of C: on the server
@@ -192,6 +203,8 @@ Import-Certificate -FilePath <certificate file path> -CertStoreLocation Cert:\Lo
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img22.png"/>
 
+<br>
+
 ### Attach Client Certificate to User (Server)
 -Now the server needs to know as which user the WinRM session must run when it is authenticated using the client certificate. You can use an existing user or create a user specifically for WinRM sessions. Add the client certificate to the WinRM client certificate store. The subject that the client will use during WinRM authentication, and the credentials of the local user to use on successful authentication, will be associated with the certificate. Note that the Subject must match the subject of the client SSL Certificate generated earlier on the client. In my case this will be ‘Win-Dev-01’. In the dialog asking for credentials, enter the credentials of the local user as which the WinRM sessions must be run:
 ```Powershell
@@ -199,6 +212,8 @@ New-Item -Path WSMan:\localhost\ClientCertificate -Subject '<subject>' -URI * -I
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img23.png"/>
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img24.png"/>
+
+<br>
 
 ### Test Connection on the Client (Client)
 -Everything should be set up correctly now. There is a cmdlet specifically for testing if everything is working as expected. By using the parameter -Authentication ClientCertificate we force the use of HTTPS:
