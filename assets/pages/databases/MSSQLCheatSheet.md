@@ -311,6 +311,8 @@ FROM sys.databases
 5 = EMERGENCY
 <br>
 6 = OFFLINE
+> <br>
+
 ```SQL
 SELECT *
 FROM sys.databases db WHERE
