@@ -31,8 +31,11 @@ winrm delete WinRM/Config/Listener?Address=*+Transport=HTTP
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img2.png"/>
 
+<br>
+
 ### Setting the Allowed Authentication Methods (Server)
 This step is to make sure that only the desired authentication methods are enabled. The insecure ones should be disabled by default. Certificate authentication is disabled by default too, so it needs to be enabled.
+
 -To inspect the current settings run this command:
 ```Powershell
 winrm get WinRM/Config/Service/Auth
@@ -40,6 +43,7 @@ winrm get WinRM/Config/Service/Auth
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img3.png"/>
 
 To allow clients to authenticate using certificates only the certificate authentication method has to be enabled. Negotiate authentication is needed to be able to (amongst others) locally configure WinRM using the winrm command. Whether other authentication methods need to be enabled depends on your environment. For example: Kerberos authentication is used in environments with Active Directory Domain Services, so it is very likely that it must be enabled in such environments. The methods that must be disabled unless they are needed for a specific use case, are basic and credential security support provider (CredSSP). Basic authentication will send your password to the server. CredSSP will send your credentials to the server
+
 -Disable Basic and CredSSP auth by running the following:
 ```Powershell
 winrm set WinRM/Config/Service/Auth '@{Basic="false";Kerberos="true";Negotiate="true";Certificate="true";CredSSP="false"}'
@@ -56,6 +60,7 @@ $serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostna
 ```
 > (Important Info)
 ^ Note the space in between . .
+
 ^ Change "CN=<(fully-qualified) hostname>". In my case, I will change it to  "CN=Win-Dev-02".
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img5.png"/>
 
