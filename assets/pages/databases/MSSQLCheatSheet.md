@@ -292,3 +292,42 @@ INNER JOIN
 SELECT name, log_reuse_wait_desc
 FROM sys.databases
 ```
+
+<br>
+
+## Check  SQL Database states
+> Note: You will need to change 'db.state' to the state that you are looking for from the following list, in  this example, I am looking at Database with the State 'RECOVERING'
+0 = ONLINE
+1 = RESTORING
+2 = RECOVERING
+3 = RECOVERY_PENDING
+4 = SUSPECT
+5 = EMERGENCY
+6 = OFFLINE
+```SQL
+SELECT *
+FROM sys.databases db WHERE
+db.state = 2
+order by name
+```
+
+<br>
+
+## Get a list of endpoints
+```SQL
+select * from sys.endpoints
+```
+
+<br>
+
+## Set Mirroring Endpoint to Stopped
+```SQL
+ALTER ENDPOINT Mirroring STATE=STOPPED
+```
+
+<br>
+
+## Set Mirroring Endpoint to Started
+```SQL
+ALTER ENDPOINT Mirroring STATE=Started;
+```
