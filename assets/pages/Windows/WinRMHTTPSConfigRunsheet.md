@@ -62,6 +62,7 @@ Windows includes a cmdlet with which you can create self-signed certificates, bu
 $serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostname>" -EnhancedKeyUsage '1.3.6.1.5.5.7.3.1' -StoreLocation LocalMachine -IsCA $true
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img5.png"/>
+
 > (Important Note 1)
 ^ Note the space in between . .
 
