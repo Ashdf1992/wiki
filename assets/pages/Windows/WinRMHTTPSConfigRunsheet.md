@@ -93,6 +93,9 @@ winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname="host_na
 
 > That is it for the server configuration. We will return to the server when a local administrator for client connections has to be created
 
+<br>
+<br>
+
 ## Client Configuration
 > Congratulations, you made it this far. This part of the guide is in relation to the client-side configuration. Essentially, the computer you want to use to remote connect to the server
 
