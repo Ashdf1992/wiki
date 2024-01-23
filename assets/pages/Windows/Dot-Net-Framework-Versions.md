@@ -16,8 +16,8 @@ Select PSChildName, Version, Release, @{
         "460798|460805" { [Version]"4.7" }
         "461308|461310" { [Version]"4.7.1" }
         "461808|461814" { [Version]"4.7.2" }
-        "528040|528049" { [Version]"4.8" }
-        {$_ -gt 528049} { [Version]"Undocumented version (> 4.8), please update script" }
+        "528040|533320" { [Version]"4.8" }
+        {$_ -gt 533320} { [Version]"Undocumented version (> 4.8), please update script" }
       }
     }
 }
