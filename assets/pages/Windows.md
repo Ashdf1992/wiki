@@ -19,6 +19,7 @@
 
 ## IIS
 [- Clear IIS Log Files](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISLogClean.md)
+[- IIS and X-Forwarded-For Header (XFF)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISXFF.md)
 
 <br>
 
