@@ -360,8 +360,6 @@ sys.dm_os_sys_info;
 ```
 ### Key for the Above query. 
 ComputerNamePhysicalNetBIOS is the NetBIOS name of the machine where the SQL Server instance is running.
-* APU MASTER SW to ON
-* APU START to ON
 * cpu_count is the number of logical CPUs.
 * hyperthread_ratio is the number of CPUs exposed on a single socket.
 * softnuma_configuration is set to one of the following:
