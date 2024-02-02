@@ -1,6 +1,6 @@
 # Failover Cluster Inter-Network Connectivity Checker
 
-<i><p style="color:grey">Revision: 1.0</p></i>
+<p style="color:grey">Revision: 1.0</p>
 <br>
 <i>Relevent Products & Services : Failover Cluster, SQL, Active Directory, Firewall Ports</i>
 <br>
