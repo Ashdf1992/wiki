@@ -1,10 +1,10 @@
 # Failover Cluster Inter-Network Connectivity Checker
 
-<font color="red"> Revision: 1.0</font>
+<i> Revision: 1.0 </i>
 <br>
 <i>Relevent Products & Services : Failover Cluster, SQL, Active Directory, Firewall Ports</i>
 <br>
-Environment: Powershell
+<i>Environment: Powershell</i>
 
 <br>
 <br>
