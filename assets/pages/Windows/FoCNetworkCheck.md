@@ -2,6 +2,12 @@
 
 ### This Powershell script will check inter-network connectivity from the cluster node it is ran on, to other cluster nodes referenced within '$destclusternode', this value will need to be altered
 
+> Revision: 1.0
+> Products and/or Services: Failover Cluster, SQL, Active Directory, Firewall Ports
+> Environment: Powershell
+
+> Note that this script needs to be ran from a Cluster Node, and as a Domain Admin. 
+
 ```Powershell
 Write-Output "This script is being ran from:" $env:computername
 Write-Output ""
