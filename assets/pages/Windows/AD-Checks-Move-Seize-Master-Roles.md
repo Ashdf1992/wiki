@@ -30,7 +30,6 @@ repadmin /showrepl
 ``` Powershell
 Move-ADDirectoryServerOperationMasterRole -Identity "Enter the Name of a DC here" -OperationMasterRole SchemaMaster, DomainNamingMaster, PDCEmulator, RIDMaster, InfrastructureMaster
 ```
-> (Warning) The above will move the Master Roles, note however, this will need to be carried out on a DC that is not tombstoned, and is still online.
 
 <br>
 
