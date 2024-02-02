@@ -6,6 +6,10 @@
 <br>
 <i>Environment: Powershell</i>
 
+<br>
+<br>
+
+## This article outlines some commands that can be ran to review the current owner of the FSMO roles, it also outlines how to check for replication, and then outlines the commands required to move or seize the FSMO roles.
 
 # Check the FSMO roles
 ``` Powershell
@@ -14,6 +18,7 @@ netdom query fsmo
 
 
 # Check AD replication
+>.info Always check replication prior to moving the FSMO roles
 ``` Powershell
 repadmin /showrepl
 ```
