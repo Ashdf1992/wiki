@@ -18,7 +18,7 @@ netdom query fsmo
 
 
 # Check AD replication
->.info Always check replication prior to moving the FSMO roles
+>Always check replication prior to moving the FSMO roles
 ``` Powershell
 repadmin /showrepl
 ```
