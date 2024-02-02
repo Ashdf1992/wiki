@@ -1,10 +1,12 @@
 # Failover Cluster Inter-Network Connectivity Checker
 
-### This Powershell script will check inter-network connectivity from the cluster node it is ran on, to other cluster nodes referenced within '$destclusternode', this value will need to be altered
-
 Revision: 1.0
+<br>
 Products and/or Services: Failover Cluster, SQL, Active Directory, Firewall Ports
+<br>
 Environment: Powershell
+
+### This Powershell script will check inter-network connectivity from the cluster node it is ran on, to other cluster nodes referenced within '$destclusternode', this value will need to be altered
 
 > Note that this script needs to be ran from a Cluster Node, and as a Domain Admin. 
 
