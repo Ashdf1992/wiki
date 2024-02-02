@@ -14,7 +14,7 @@ $destclusternode = Read-Host "Enter the 'Name' of the 'Cluster Node' listed abov
 $destclusternodeIP = Resolve-DnsName $destclusternode | Select -ExpandProperty IPAddress
 $Standardclusterports = "3343","445","135"
 $Rand_alloc_high_ports = Get-NetTCPConnection -RemoteAddress $destclusternodeIP | Where-Object { $_.LocalPort -ge "49152"} | Select -ExpandProperty LocalPort
-$ports = $Standardports + $Rand_alloc_high_ports
+$ports = $Standardclusterports + $Rand_alloc_high_ports
 foreach ($d in $destclusternode)
 {
     Write-Output $destclusternode
