@@ -13,9 +13,16 @@ Write-Output ""
 $destclusternode = Read-Host "Enter the 'Name' of the 'Cluster Node' listed above you wish to check "
 $destclusternodeIP = Resolve-DnsName $destclusternode | Select -ExpandProperty IPAddress
 $Standardclusterports = "3343","445","135"
-$Rand_alloc_high_ports = Get-NetTCPConnection -RemoteAddress $destclusternodeIP | Where-Object { $_.LocalPort -ge "49152"} | Select -ExpandProperty LocalPort
-# $Rand_alloc_high_ports = Invoke-Command -ComputerName $destclusternode -ScriptBlock {Get-NetTCPConnection | Where-Object { $_.LocalPort -ge "49152"} | Select -ExpandProperty LocalPort
-$ports = $Standardclusterports + $Rand_alloc_high_ports
+#$Rand_alloc_high_ports = Get-NetTCPConnection -RemoteAddress $destclusternodeIP | Where-Object { $_.LocalPort -ge "49152"} | Select -ExpandProperty Localport
+#$Rand_alloc_high_ports = Invoke-Command -ComputerName $destclusternode -ScriptBlock {Get-NetTCPConnection | Where-Object { $_.LocalPort -ge "49152"} | Select -ExpandProperty LocalPort
+#Get-Process -Id (Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -ge "49152"}).OwningProcess | Where-Object {$_.ProcessName -eq "clussvc"} | Select -ExpandProperty Id
+#Get-NetTCPConnection | where-object { ($_.OwningProcess -eq ) -and ($_.LocalPort -ge "49152")} | Select -ExpandProperty LocalPort
+$processIDcommand = {(Get-Process -Id (Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -ge "49152"}).OwningProcess | Where-Object {$_.ProcessName -eq "clussvc"})}
+$Rand_alloc_high_portsbuilder1 = Invoke-Command -ComputerName $destclusternode -ScriptBlock $processIDcommand
+[string]$process = $Rand_alloc_high_portsbuilder1.Id.ToString()
+$portscommand = {Get-NetTCPConnection | where-object { ($_.OwningProcess -eq $using:process) -and ($_.LocalPort -ge "49152")} | Select -ExpandProperty LocalPort -Unique}
+$Rand_alloc_high_portsbuilder2 = Invoke-Command -ComputerName $destclusternode -ScriptBlock $portscommand
+$ports = $Standardclusterports + $Rand_alloc_high_portsbuilder2
 foreach ($d in $destclusternode)
 {
     Write-Output $destclusternode
