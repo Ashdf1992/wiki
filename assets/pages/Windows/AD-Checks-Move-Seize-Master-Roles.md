@@ -1,13 +1,20 @@
 # Check DCs and Operations Masters
-Environment: CMD
-``` CMD
+
+<i> Revision: 1.0 </i>
+<br>
+<i>Relevent Products & Services : Active Directory, FSMO Roles</i>
+<br>
+<i>Environment: Powershell</i>
+
+
+# Check the FSMO roles
+``` Powershell
 netdom query fsmo
 ```
 
 
 # Check AD replication
-Environment: CMD
-``` CMD
+``` Powershell
 repadmin /showrepl
 ```
 
