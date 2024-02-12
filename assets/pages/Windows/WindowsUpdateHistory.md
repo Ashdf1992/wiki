@@ -61,20 +61,20 @@ Select-Object Result, Date, Title, SupportUrl, Product, UpdateId, RevisionNumber
 ```
 ## Get Full Windows Update Log:
 ```Powershell
-Get-WuaHistory | Format-Table
+Get-WuaHistory | Format-Table -Wrap -Autosize
 ```
 
 ## Get Failed Updates:
 ```Powershell
-Get-WuaHistory | where {$_.result -eq "Failed"} | Select Result,Date,Title | Format-Table
+Get-WuaHistory | where {$_.result -eq "Failed"} | Select Result,Date,Title | Format-Table -Wrap -Autosize
 ```
 
 ## Get Successful Updates:
 ```Powershell
-Get-WuaHistory | where {$_.result -eq "Succeeded"} | Select Result,Date,Title | Format-Table
+Get-WuaHistory | where {$_.result -eq "Succeeded"} | Select Result,Date,Title | Format-Table -Wrap -Autosize
 ```
 
 ## Get In-Progress/Reboot Pending Updates:
 ```Powershell
-Get-WuaHistory | where {$_.result -eq "In-Progress/Reboot Pending"} | Select Result,Date,Title | Format-Table
+Get-WuaHistory | where {$_.result -eq "In-Progress/Reboot Pending"} | Select Result,Date,Title | Format-Table -Wrap -Autosize
 ```
