@@ -116,6 +116,21 @@
 <BR>
 
 ## Microsoft Articles
+#### Windows Server
+[- Windows Server release information](https://learn.microsoft.com/en-us/windows-server/get-started/windows-server-release-info)
+
+[- Windows Server release information](https://learn.microsoft.com/en-us/windows-server/get-started/windows-server-release-info#windows-server-release-history)
+
+[- Hardware requirements for Windows Server](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
+
+[- What's new in Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022)
+
+[- What's new in Windows Server 2019](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2019)
+
+[- What's new in Windows Server 2016](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2016)
+
+<br>
+
 #### IPv6
 [- IPv6 for the Windows Administrator: Why you need to care about IPv6](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251)
 
@@ -156,4 +171,12 @@
 [- Database Mirroring and Replication (SQL Server)](https://learn.microsoft.com/en-us/sql/database-engine/database-mirroring/database-mirroring-and-replication-sql-server?view=sql-server-ver16)
 
 [- SQL Server High Availability best practices](https://learn.microsoft.com/en-us/dynamicsax-2012/appuser-itpro/sql-server-high-availability-best-practices)
+
+<br>
+
+#### In-Place Upgrades
+[- Overview of Windows Server upgrades (Upgrade Matrix) ](https://learn.microsoft.com/en-us/windows-server/get-started/upgrade-overview)
+
+[- Perform an in-place upgrade of Windows Server](https://learn.microsoft.com/en-us/windows-server/get-started/perform-in-place-upgrade)
+
 
