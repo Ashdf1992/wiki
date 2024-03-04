@@ -124,4 +124,4 @@
 <br>
 
 ### Failover Cluster Manager
-[- Validating a Cluster with Zero Downtime](https://techcommunity.microsoft.com/t5/failover-clustering/validating-a-cluster-with-zero-downtime/ba-p/371685)https://techcommunity.microsoft.com/t5/failover-clustering/validating-a-cluster-with-zero-downtime/ba-p/371685
+[- Validating a Cluster with Zero Downtime](https://techcommunity.microsoft.com/t5/failover-clustering/validating-a-cluster-with-zero-downtime/ba-p/371685)
