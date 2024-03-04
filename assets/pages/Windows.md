@@ -125,3 +125,8 @@
 
 ### Failover Cluster Manager
 [- Validating a Cluster with Zero Downtime](https://techcommunity.microsoft.com/t5/failover-clustering/validating-a-cluster-with-zero-downtime/ba-p/371685)
+
+<br>
+
+### TCP/IP 
+[- Use PowerShell to Change IP Behavior with SkipAsSource](https://devblogs.microsoft.com/scripting/use-powershell-to-change-ip-behavior-with-skipassource/)
