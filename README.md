@@ -4,7 +4,7 @@
 <br>
 
 ## Linux
-[<img src="./docs/assets/linux-icon-28163.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux.md)
+[<img src="./docs/assets/Tux.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux.md)
 
 <br>
 
