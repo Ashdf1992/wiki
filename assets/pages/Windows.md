@@ -117,6 +117,6 @@
 
 ## Articles
 ### IPv6
-[- IPv6 for the Windows Administrator: Why you need to care about IPv6](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindWindowsUpdates.md](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251)https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251)
+[- IPv6 for the Windows Administrator: Why you need to care about IPv6](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251)
 
-[- Guidance for configuring IPv6 in Windows for advanced users](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindWindowsUpdates.md](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251)https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/ipv6-for-the-windows-administrator-why-you-need-to-care-about/ba-p/256251](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/configure-ipv6-in-windows)https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/configure-ipv6-in-windows)
+[- Guidance for configuring IPv6 in Windows for advanced users](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/configure-ipv6-in-windows)
