@@ -1,5 +1,5 @@
 ## Windows
-[<img src="./docs/assets/windows-icon-png-5814.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows.md)
+[<img src="./docs/assets/WindowsLogo2023.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows.md)
 
 <br>
 
@@ -15,6 +15,11 @@
 
 ## Databases
 [<img src="./docs/assets/database.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Database.md)
+
+<br>
+
+## Microsoft Articles
+[<img src="./docs/assets/microsoftlogo.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/MicrosoftArticles.md)
 
 <br>
 
