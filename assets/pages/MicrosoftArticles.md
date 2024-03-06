@@ -15,6 +15,8 @@
 
 [- Offline Language Pack & Features on Demand ISO for Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022)
 
+[Add languages to Windows images (offline)](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/add-language-packs-to-windows?view=windows-11#build-a-custom-fod-and-language-pack-repository)
+
 <br>
 
 ## IPv6
