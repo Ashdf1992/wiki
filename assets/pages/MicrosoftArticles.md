@@ -13,6 +13,8 @@
 
 [- What's new in Windows Server 2016](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2016)
 
+[- Offline Language Pack ISO for Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022)
+
 <br>
 
 ## IPv6
