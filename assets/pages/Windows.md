@@ -35,6 +35,8 @@
 
 [- Server manager - Online - data retrieval failures](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ServerManager-DataRetrievalFailure.md)
 
+[- Adding an Offline Language Pack to Windows Server 2022 using FOD ISO (Offline Install)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Server2022LPInstall.md)
+
 <br>
 
 ## Group Policy
