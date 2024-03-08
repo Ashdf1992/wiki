@@ -41,6 +41,8 @@
 
 [- Recycling Settings for an Application Pool](https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/applicationpools/add/recycling/)
 
+[- Managing IIS Log File Storage](https://learn.microsoft.com/en-us/iis/manage/provisioning-and-managing-iis/managing-iis-log-file-storage)
+
 <br>
 
 #### Microsoft PKI Cert Repository
