@@ -37,6 +37,8 @@
 
 [- Adding an Offline Language Pack to Windows Server 2022 using FOD ISO (Offline Install)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Server2022LPInstall.md)
 
+[- Get WWNs for Disks](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ListWWN.md)
+
 <br>
 
 ## Group Policy
