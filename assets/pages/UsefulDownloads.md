@@ -49,6 +49,19 @@
 
 [Starwind V2V Converter](https://www.starwindsoftware.com/download-starwind-products)
 
+[WSUS Offline Update](https://download.wsusoffline.net/)
+
+[HeiDoc Windows ISO Downloader](https://www.heidoc.net/joomla/technology-science/microsoft/67-microsoft-windows-and-office-iso-download-tool)
+
+[Snappy Driver Installer](https://sdi-tool.org/)
+
+[MiniTool Partition Wizard Free Edition 9.1](https://www.philscomputerlab.com/uploads/3/7/2/3/37231621/minitool_partition_wizard_free_edition_v9.1.exe)
+
+[MiniTool Partition Wizard Free Edition 9.1 Alternative Link](https://www.partitionwizard.com/what-is-new-in-9.0.html)
+
+[YUMI - Multiboot USB](https://pendrivelinux.com/yumi-multiboot-usb-creator/)
+
+[Easy2Boot](https://easy2boot.xyz/download/)
 
 
 ## Portable
