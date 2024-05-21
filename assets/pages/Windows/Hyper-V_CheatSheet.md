@@ -2,7 +2,7 @@
 
 ## Get-VM & Memory Usage
 ```Powershell
-Get-VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1mb -as [int]}} | out-gridview
+Get-VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1gb -as [int]}} | out-gridview
 ```
 
 ## Get-VM & CPU count
@@ -24,7 +24,7 @@ Write-Host "CPU:"
 Get-VM $VM | Get-VMProcessor | Select VMName,@{label='vCPU Core Count';expression={$_.Count}}
 Write-Host ""
 Write-Host "Memory Allocation:"
-Get-VM $VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1mb -as [int]}}
+Get-VM $VM | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1gb -as [int]}}
 Write-Host ""
 Write-Host "Disk Allocation:"
 Get-VM $VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}
