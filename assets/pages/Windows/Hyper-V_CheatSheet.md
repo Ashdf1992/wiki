@@ -29,3 +29,23 @@ Write-Host ""
 Write-Host "Disk Allocation:"
 Get-VM $VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}
 Write-Host "Complete!"
+```
+
+## Mini Report - All VMs
+```Powershell
+$VMs = Get-VM | Select -ExpandProperty Name
+foreach ($v in $VMs)
+{
+    Write-Host "VM Name: $v"
+    Write-Host "vCPU Info:"
+    Get-VM $v | Get-VMProcessor | Select VMName,@{label='vCPU Core Count';expression={$_.Count}} | ft
+    Write-Host "Memory Info:"
+    Get-VM $v | Select Name,@{label='Memory Assigned(MB)';expression={$_.memoryassigned/1gb -as [int]}} | ft
+    Write-Host "Disk Allocation:"
+    Get-VM $v | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}} | ft
+    Write-Host ""
+
+
+}
+Write-Host "Report Complete!"
+```
