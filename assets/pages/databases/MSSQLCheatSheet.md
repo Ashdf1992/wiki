@@ -461,45 +461,6 @@ ALTER ENDPOINT Mirroring STATE=Started;
 
 <br>
 
-## Microsoft's Recommendation for MaxDop in relation to NUMA nodes. 
-### Summary of Config
-```SQL
-SELECT @@SERVERNAME, 
-SERVERPROPERTY('ComputerNamePhysicalNetBIOS') AS [Local Machine Name],  
-(cpu_count / hyperthread_ratio) AS [Physical CPUs],  
-hyperthread_ratio AS [Hyperthread Ratio],  
-cpu_count AS [Logical CPUs],  
-softnuma_configuration AS [Soft-NUMA Configuration],  
-softnuma_configuration_desc AS [Soft-NUMA Description],  
-socket_count AS [Available Sockets],  
-numa_node_count AS [Available NUMA Nodes]  
-FROM  
-sys.dm_os_sys_info;  
-```
-### Key for the Above query. 
-ComputerNamePhysicalNetBIOS is the NetBIOS name of the machine where the SQL Server instance is running.
-* cpu_count is the number of logical CPUs.
-* hyperthread_ratio is the number of CPUs exposed on a single socket.
-* softnuma_configuration is set to one of the following:
-    0 (configuration is off and the hardware defaults are used)
-    1 (automated soft-NUMA)
-    2 (manual soft-NUMA configuration through the registry)
-* softnuma_configuration_desc is either:
-    OFF (the soft-NUMA feature is off)
-    ON (the SQL Server automatically determines the NUMA node sizes)
-    MANUAL
-* socket_count is the number of available processor sockets.
-* numa_node_count is the number of available NUMA nodes.
-
-### For a server with a single NUMA node:
-Set the MAXDOP value equal to or less than the number of logical processors if the server has less than or equal to eight logical processors.
-Set the MAXDOP value to 8 if the number of logical processors is greater than eight.
-
-### For a server with multiple NUMA nodes:
-Set the MAXDOP value equal to or less than the number of logical processors per NUMA node if the server has less than or equal to sixteen logical processors per NUMA node.
-Set the MAXDOP value to half the number of logical processors if the processors exceed sixteen per NUMA node. At maximum, the MAXDOP value should be 16.
-
-
 ## Show All availability groups visible to this server where this Server is the Primary replica
 ```SQL
 SELECT Groups.[Name] AS AGname
@@ -740,3 +701,41 @@ END;
 ```
 
 <br>
+
+## Microsoft's Recommendation for MaxDop in relation to NUMA nodes. 
+### Summary of Config
+```SQL
+SELECT @@SERVERNAME, 
+SERVERPROPERTY('ComputerNamePhysicalNetBIOS') AS [Local Machine Name],  
+(cpu_count / hyperthread_ratio) AS [Physical CPUs],  
+hyperthread_ratio AS [Hyperthread Ratio],  
+cpu_count AS [Logical CPUs],  
+softnuma_configuration AS [Soft-NUMA Configuration],  
+softnuma_configuration_desc AS [Soft-NUMA Description],  
+socket_count AS [Available Sockets],  
+numa_node_count AS [Available NUMA Nodes]  
+FROM  
+sys.dm_os_sys_info;  
+```
+### Key for the Above query. 
+ComputerNamePhysicalNetBIOS is the NetBIOS name of the machine where the SQL Server instance is running.
+* cpu_count is the number of logical CPUs.
+* hyperthread_ratio is the number of CPUs exposed on a single socket.
+* softnuma_configuration is set to one of the following:
+    0 (configuration is off and the hardware defaults are used)
+    1 (automated soft-NUMA)
+    2 (manual soft-NUMA configuration through the registry)
+* softnuma_configuration_desc is either:
+    OFF (the soft-NUMA feature is off)
+    ON (the SQL Server automatically determines the NUMA node sizes)
+    MANUAL
+* socket_count is the number of available processor sockets.
+* numa_node_count is the number of available NUMA nodes.
+
+### For a server with a single NUMA node:
+Set the MAXDOP value equal to or less than the number of logical processors if the server has less than or equal to eight logical processors.
+Set the MAXDOP value to 8 if the number of logical processors is greater than eight.
+
+### For a server with multiple NUMA nodes:
+Set the MAXDOP value equal to or less than the number of logical processors per NUMA node if the server has less than or equal to sixteen logical processors per NUMA node.
+Set the MAXDOP value to half the number of logical processors if the processors exceed sixteen per NUMA node. At maximum, the MAXDOP value should be 16.
