@@ -447,6 +447,44 @@ select * from sys.endpoints
 
 <br>
 
+## Get a list of all mirrored SQL DBs
+```SQL
+select 
+ db.name, 
+ db.state_desc, 
+ dm.mirroring_role_desc, 
+ dm.mirroring_state_desc,
+ dm.mirroring_safety_level_desc,
+ dm.mirroring_partner_name, 
+ dm.mirroring_partner_instance 
+from sys.databases db
+inner join sys.database_mirroring dm
+on db.database_id = dm.database_id
+where dm.mirroring_role_desc is not null
+order by db.name
+```
+
+<br>
+
+## Get a list of all non-mirrored SQL DBs
+```SQL
+select 
+ db.name, 
+ db.state_desc, 
+ dm.mirroring_role_desc, 
+ dm.mirroring_state_desc,
+ dm.mirroring_safety_level_desc,
+ dm.mirroring_partner_name, 
+ dm.mirroring_partner_instance 
+from sys.databases db
+inner join sys.database_mirroring dm
+on db.database_id = dm.database_id
+where dm.mirroring_role_desc is null
+order by db.name
+```
+
+<br>
+
 ## Set Mirroring Endpoint to Stopped
 ```SQL
 ALTER ENDPOINT Mirroring STATE=STOPPED
