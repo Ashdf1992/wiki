@@ -34,3 +34,9 @@ Here you can see the web servers that you are connected to by querying the remot
 ```Powershell
 Get-NetTCPConnection -RemotePort 443
 ```
+
+## Get the Owning Process for a specific Local Port
+```Powershell
+$localport = Read-Host "Enter the Local Port Number you wish to get the owning process for: "
+Get-NetTCPConnection -LocalPort $localport -State Listen | select Local*,Remote*,State,@{Name="Process ID";Expression={(Get-Process -Id $_.OwningProcess).Id}},@{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}}
+```
