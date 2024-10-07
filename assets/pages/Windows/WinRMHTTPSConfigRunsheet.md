@@ -69,7 +69,7 @@ $serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostna
 > (Important Note 2)
 ^ Change "CN=<(fully-qualified) hostname>". In my case, I will change it to  "CN=Win-Dev-02".
 
-> > (Important Note 3)
+> (Important Note 3)
 ^ Change -NotAfter "" to include the date that you wish for the certificate to expire.
 
 The certificate has been added to Cert:\LocalMachine\My\ (the certificates identifying the server machine) and Cert:\LocalMachine\CA\ (certificate authorities (CAs) that are trusted on the server machine), using the thumbprint as the child name.
