@@ -59,7 +59,7 @@ Windows includes a cmdlet with which you can create self-signed certificates, bu
 -First import the function in the script file, and then create the certificate for the server using the function. The common name (CN) of the subject needs to match the name that you will use to connect to the server later. In this instance, we are connecting from ‘Win-Dev-01’ to ‘Win-Dev-02’ If you want to use the hostname of the server, you can use $env:COMPUTERNAME. In this instance, I have copied the script ‘New-SelfSignedCertificateEx.ps1’ to my user directory, you just need to ensure that the script exists within the directory, where you are running the powershell commands:
 ```Powershell
 . .\New-SelfSignedCertificateEx.ps1
-$serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostname>" -EnhancedKeyUsage '1.3.6.1.5.5.7.3.1' -StoreLocation LocalMachine -IsCA $true
+$serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostname>" -EnhancedKeyUsage '1.3.6.1.5.5.7.3.1' -NotAfter "07 October 2034 16:17:33" -StoreLocation LocalMachine -IsCA $true
 ```
 <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WinRMHTTPSImages/img5.png"/>
 
@@ -68,6 +68,9 @@ $serverCert = New-SelfSignedCertificateEx -Subject "CN=<(fully-qualified) hostna
 
 > (Important Note 2)
 ^ Change "CN=<(fully-qualified) hostname>". In my case, I will change it to  "CN=Win-Dev-02".
+
+> > (Important Note 3)
+^ Change -NotAfter "" to include the date that you wish for the certificate to expire.
 
 The certificate has been added to Cert:\LocalMachine\My\ (the certificates identifying the server machine) and Cert:\LocalMachine\CA\ (certificate authorities (CAs) that are trusted on the server machine), using the thumbprint as the child name.
 -The thumbprint is going to be needed to verify whether the correct public key has been downloaded by clients, so display it and copy it somewhere:
