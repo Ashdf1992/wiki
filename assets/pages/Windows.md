@@ -93,6 +93,8 @@
 
 [- RDP Connection Failures: Expired Self-Signed Certificate](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/rdp-connection-failures-expired-ssl.md)
 
+[- Assign Certificate to RDWeb Apps using Powershell](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RDWebSSL.md)
+
 <br>
 
 ## Remote Server Administration Tools (RSAT)
