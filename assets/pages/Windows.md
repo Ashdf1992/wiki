@@ -51,6 +51,8 @@
 
 [- IIS and X-Forwarded-For Header (XFF)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISXFF.md)
 
+[- Get All IIS Site Bindings that are using 443/HTTPS](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISHTTPSBindings.md)
+
 <br>
 
 ## Net Framework
