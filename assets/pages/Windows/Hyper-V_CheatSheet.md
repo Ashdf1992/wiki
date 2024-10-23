@@ -15,6 +15,11 @@ Get-VM | Get-VMProcessor | Select VMName,Count | Out-GridView
 Get-VM | Select-Object VMId | Get-VHD | select path,@{label='Size(GB)';expression={$_.size/1gb -as [int]}}
 ```
 
+## Get Shared Cluster Volumes Used and Free space in GB
+```Powershell
+Get-ClusterSharedVolume | ForEach-Object {[PSCustomObject]@{VolumeName = $_.Name; UsedSpace = $_.SharedVolumeInfo.Partition.UsedSpace/1gb; FreeSpace = $_.SharedVolumeInfo.Partition.FreeSpace/1gb;}} | ft -wrap -autosize
+```
+
 ## Mini Report - 1 VM
 ```Powershell
 Get-VM | Select Name
