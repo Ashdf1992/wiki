@@ -3,6 +3,8 @@
 
 ``` Bash
 NOTE: (x is the partition you want to resize)
+for i in /sys/class/scsi_host/host*/scan; do echo "- - -" > $i; done
+for i in /sys/class/scsi_device/*/device/rescan; do echo "1" > $i; done
 growpart /dev/sda x 
 lsblk
 pvresize /dev/sda(x)
