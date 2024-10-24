@@ -17,3 +17,10 @@ lvextend -l+100%FREE /dev/mapper/vg_main-lv_root /dev/sda(x)
 lvs
 resize2fs /dev/mapper/vg_main-lv_root
 ```
+
+> Note that for XFS volumes you will need to expand using xfs_growfs instead of resize2fs like the below example
+
+``` Bash
+xfs_growfs /dev/mapper/vg_main-lv_root
+```
+
