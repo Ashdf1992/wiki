@@ -22,5 +22,5 @@
 
 [- Count Connections](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux/CountConnections.md)
 
-[- LVM Resize](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux/DockerCheatSheet.md)
+[- Docker Cheatsheet](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Linux/DockerCheatSheet.md)
 <br>
