@@ -519,6 +519,45 @@ WHERE primary_replica != @@Servername;
 
 <br>
 
+## Show All Databases that are not part of an Availability Group
+```SQL
+SELECT name From sys.databases WHERE group_database_id IS NULL;
+```
+
+<br>
+
+## Show status of the 'Automatic Seed' for an Availability group.
+```SQL
+SELECT start_time,
+    ag.name,
+    db.database_name,
+    current_state,
+    performed_seeding,
+    failure_state,
+    failure_state_desc
+FROM sys.dm_hadr_automatic_seeding autos 
+    JOIN sys.availability_databases_cluster db 
+        ON autos.ag_db_id = db.group_database_id
+    JOIN sys.availability_groups ag 
+        ON autos.ag_id = ag.group_id
+		where current_state != 'COMPLETED'
+		ORDER BY current_state;
+```
+
+<br>
+
+## Get DB Size in MB
+```SQL
+SELECT DB_NAME(database_id) AS DatabaseName,
+       Name AS Logical_Name,
+       Physical_Name,
+       (size * 8) / 1024 SizeMB
+FROM sys.master_files
+ORDER BY SizeMB;
+```
+
+<br>
+
 ## Show All Databases in an availability group visible to this server where this Server is the primary replica
 ```SQL
 SELECT
