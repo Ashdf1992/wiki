@@ -27,7 +27,7 @@ docker stop nginx
 
 ## Start the New Image
 ``` Bash
-docker docker-compose.yaml up -d
+docker compose up -d
 ```
 
 <br>
