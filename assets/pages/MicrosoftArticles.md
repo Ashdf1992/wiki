@@ -7,6 +7,8 @@
 
 [- Hardware requirements for Windows Server](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
 
+[- What's new in Windows Server 2025](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-windows-server-2025)
+
 [- What's new in Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022)
 
 [- What's new in Windows Server 2019](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2019)
