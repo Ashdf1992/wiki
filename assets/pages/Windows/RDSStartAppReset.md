@@ -6,6 +6,8 @@ This was resolved in Windows Server 2016 and 2019 by installing a Windows update
 
 The following powershell script will remove all of the previous entries created. In addition to this, it will also add the manual entry required within the registry to prevent the rules from being generated again in future, every time a user logs in. 
 
+Part 1:
+
 ```powershell
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy" -Name 'DeleteUserAppContainersOnLogoff' -Value 1 -PropertyType DWord
 $profiles = get-wmiobject -class win32_userprofile
@@ -80,4 +82,14 @@ write-host end $end
 write-host eta $eta
 
 write-host $result.minutes min $result.seconds sec
+```
+
+<br>
+
+Part 2:
+
+
+```Powershell
+Remove-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications" -Recurse
+New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications"
 ```
