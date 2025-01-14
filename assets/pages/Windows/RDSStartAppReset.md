@@ -93,3 +93,12 @@ Part 2:
 Remove-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications" -Recurse
 New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications"
 ```
+
+<br>
+
+## Reference
+https://www.reddit.com/r/fslogix/comments/1bp447v/slow_to_do_login_fslogix_please_wait_for_the/?rdt=46676
+<br>
+https://msendpointmgr.com/2021/06/17/fslogix-slow-sign-in-fix/
+<br>
+https://www.phy2vir.com/windows-server-2016-2019-rds-server-black-screen-or-start-menu-not-working/
