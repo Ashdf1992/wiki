@@ -19,7 +19,7 @@
 <br>
 
 ## Microsoft Articles
-[<img src="./docs/assets/microsoftlogo.png" width="250"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/MicrosoftArticles.md)
+[<img src="./docs/assets/Microsoft_logo_(2012).svg.webp" width="700"/>](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/MicrosoftArticles.md)
 
 <br>
 
