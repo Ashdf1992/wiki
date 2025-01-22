@@ -171,7 +171,7 @@ sp_blitz @CheckUserDatabaseObjects = 0;
 GO
 ```
 
-### Version 5 SPBlitz Check User Databases (if Number of DBs is greater than 50
+### Version 5 SPBlitz Check User Databases (if Number of DBs is greater than 50)
 > Required for checking inside user databases if there's more than 50
 ```SQL
 sp_blitz @BringThePain = 1;
