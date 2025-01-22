@@ -141,7 +141,7 @@ order by record_id desc
 
 ## SPBlitz
 ### Run First (sp_Blitz.sql)
-[sp_Blitz Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_blitz.sql)
+[sp_Blitz Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_Blitz.sql)
 
 ### Version 1 SPBlitz Server Health Check
 > SQL Server healthcheck
@@ -182,7 +182,7 @@ GO
 
 ## SPBlitzCache
 ### Run First (sp_BlitzCache.sql)
-[sp_BlitzCache Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_blitzcache.sql)
+[sp_BlitzCache Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_BlitzCache.sql)
 
 ### Version 1 SPBlitzCache Standard
 > Looks at the plan cache and displays the 10 most expensive queries sorted by cumulative CPU run time
@@ -209,7 +209,7 @@ GO
 
 ## SPBlitzFirst
 ### Run First (sp_BlitzFirst.sql)
-[sp_BlitzFirst Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_blitzfirst.sql)
+[sp_BlitzFirst Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/sp_BlitzFirst.sql)
 
 ### Version 1 SPBlitzFirst Standard
 > Takes a sample of data, waits 5 seconds, takes another sample and compares
