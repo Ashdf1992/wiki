@@ -64,6 +64,10 @@
 
 [- SQL Server High Availability best practices](https://learn.microsoft.com/en-us/dynamicsax-2012/appuser-itpro/sql-server-high-availability-best-practices)
 
+[- SQL Server Dynamic Memory Management & Memory Architecture](https://learn.microsoft.com/en-us/sql/relational-databases/memory-management-architecture-guide?view=sql-server-ver16#dynamic-memory-management)
+
+[- SQL Server Memory Configuration Options](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/server-memory-server-configuration-options?view=sql-server-ver16)
+
 <br>
 
 ## In-Place Upgrades
