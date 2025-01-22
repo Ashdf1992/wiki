@@ -88,6 +88,10 @@ write-host $result.minutes min $result.seconds sec
 
 Part 2:
 
+IMPORTANT:
+> Part 2 of this script removes bloat from the registry key 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications'. There have been instances where this has caused issues with printing, specifically within an RDS Environment. If you proceed with 'Part 2', ensure that you export the contents of 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications' prior to running the below commands, so that you can revert back if required. 
+
+<br>
 
 ```Powershell
 Remove-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications" -Recurse
