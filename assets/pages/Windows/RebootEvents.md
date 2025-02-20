@@ -48,7 +48,7 @@ function Get-RebootReport {
     
     end {
     }
-    ##https://raw.githubusercontent.com/tonypags/PsWinAdmin/master/Public/Get-RebootReport.ps1
 }
 $csvPath="$($env:temp)\temp.csv";$LogNames=@('System','Application');$LastRebootTime = (Get-RebootReport)[0].Date;$Events=@();$LogNames|%{$FilterHashtable = @{LogName=$_;EndTime=($LastRebootTime.AddMinutes(1));StartTime=($LastRebootTime.AddMinutes(-5));};Get-WinEvent -FilterHashtable $FilterHashtable|%{$Events += $_}};$Events| sort TimeCreated |select LogName, TimeCreated, ProviderName, Message | export-csv $csvPath -notype; ii $csvPath
 ```
+https://raw.githubusercontent.com/tonypags/PsWinAdmin/master/Public/Get-RebootReport.ps1
