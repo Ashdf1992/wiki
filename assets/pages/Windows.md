@@ -114,6 +114,8 @@
 
 [- Finding the cause of a reboot](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FindRebootCause.md)
 
+[- Events near last reboot](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/RebootEvents.md)
+
 <br>
 
 ## Windows Updates
