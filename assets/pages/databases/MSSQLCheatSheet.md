@@ -803,8 +803,11 @@ END;
 <br>
 
 ## MaxDOP in relation to NUMA nodes. 
-### Summary of MaxDOP
-![NUMA](../../../assets/images/NUMA.jpg)
+### Summary of MaxDOP for SQL Server 2016 (13.x) and later versions
+![NUMA](../../../assets/images/maxdop2.png)
+
+### Summary of MaxDOP for SQL Server 2008 (10.0.x) through to SQL Server 2014 (12.x)
+![NUMA](../../../assets/images/maxdop1.png)
 
 ### Summary of Config
 ```SQL
