@@ -17,6 +17,9 @@
 -- |            Based on Microsoft KB# 2806535: https://goo.gl/4FD9BH and       |
 -- |            MSDN MaxDOP calculator: https://goo.gl/hzyxY1                   |
 -- +----------------------------------------------------------------------------+
+Credit:
+https://github.com/croblesm/DBA-Mastery/blob/master/MAXDOP%20Calculator/maxdop_calculator_v2.sql
+
 Copyright (c) 2019 DBA Mastery
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
