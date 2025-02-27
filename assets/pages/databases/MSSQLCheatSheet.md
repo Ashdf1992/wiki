@@ -843,3 +843,7 @@ Set the MAXDOP value to half the number of logical processors if the processors 
 
 ### MaxDOP Calculator T-SQL
 [MaxDOP Calculator](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/maxdop_calculator_v2.sql)
+<br>
+NOTE: The requirement to execute this T-SQL script is to have SQLCMD mode enabled in SSMS
+![SQLCMD](../../../assets/images/SQLCMD-mode.gif)
+
