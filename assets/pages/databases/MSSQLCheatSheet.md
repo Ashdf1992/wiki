@@ -809,6 +809,13 @@ END;
 ### Summary of MaxDOP for SQL Server 2008 (10.0.x) through to SQL Server 2014 (12.x)
 ![NUMA](../../../assets/images/maxdop1.png)
 
+### Excessive parallelism
+A higher MAXDOP often reduces duration for CPU-intensive queries. However, excessive parallelism can worsen other concurrent workload performance by starving other queries of CPU and worker thread resources. In extreme cases, excessive parallelism can consume all database or elastic pool resources, causing query timeouts, errors, and application outages.
+
+TIP: Avoid setting MAXDOP to 0 even if it does not appear to cause problems currently.
+
+Excessive parallelism becomes most problematic when there are more concurrent requests than can be supported by the CPU and worker thread resources provided by the service objective. Avoid MAXDOP 0 to reduce the risk of potential future problems due to excessive parallelism if a database is scaled up, or if future hardware configurations in Azure SQL Database provide more cores for the same database service objective.
+
 ### Summary of Config
 ```SQL
 SELECT @@SERVERNAME, 
