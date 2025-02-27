@@ -10,7 +10,7 @@ FROM sys.databases;
 > NOTE:Website for Compatibility Levels here:
 https://sqlperformance.com/2019/01/sql-performance/compatibility-levels-and-cardinality-estimation-primer
 https://sqlserverbuilds.blogspot.com/2014/01/sql-server-internal-database-versions.html
-{.is-info}
+
 
 
 <br>
@@ -22,7 +22,6 @@ Select @@version;
 > You can find the latest patch levels using the below 2 URLS
 https://sqlserverbuilds.blogspot.com/#sql2012x
 https://support.microsoft.com/en-gb/help/321185/how-to-determine-the-version-edition-and-update-level-of-sql-server-an
-{.is-info}
 
 <br>
 
@@ -50,7 +49,6 @@ ORDER BY qs.total_logical_reads DESC -- logical reads
 -- ORDER BY qs.total_worker_time DESC -- CPU time
 ```
 > You can change the order by commenting out and uncommenting the 'ORDER BY' lines at the bottom of the query.
-{.is-info}
 
 <br>
 
@@ -128,7 +126,6 @@ ORDER BY indexstats.avg_fragmentation_in_percent desc
 If index fragmentation is above 30% = Rebuild DB Indexes
 If below 30% = Reindexing 
 Both Rebuilding and Reindexing are really heavy on CPU tho so best done out of hours.
-{.is-info}
 
 <br>
 
