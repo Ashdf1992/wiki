@@ -802,7 +802,7 @@ END;
 
 <br>
 
-## MaxDOP in relation to NUMA nodes. 
+## MaxDOP
 ### Summary of MaxDOP for SQL Server 2016 (13.x) and later versions
 ![NUMA](../../../assets/images/maxdop2.png)
 
