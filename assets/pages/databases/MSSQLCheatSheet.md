@@ -7,11 +7,11 @@
 SELECT name, compatibility_level
 FROM sys.databases;
 ```
-> NOTE:Website for Compatibility Levels here:
+> Websites for Compatibility Levels here:
+
 https://sqlperformance.com/2019/01/sql-performance/compatibility-levels-and-cardinality-estimation-primer
+
 https://sqlserverbuilds.blogspot.com/2014/01/sql-server-internal-database-versions.html
-
-
 
 <br>
 
@@ -19,13 +19,18 @@ https://sqlserverbuilds.blogspot.com/2014/01/sql-server-internal-database-versio
 ```SQL
 Select @@version;
 ```
-> You can find the latest patch levels using the below 2 URLS
+> Websites for Patch Levels:
+
 https://sqlserverbuilds.blogspot.com/#sql2012x
-https://support.microsoft.com/en-gb/help/321185/how-to-determine-the-version-edition-and-update-level-of-sql-server-an
+
+https://learn.microsoft.com/en-gb/troubleshoot/sql/releases/download-and-install-latest-updates
 
 <br>
 
 ## Expensive queries
+
+Note that for the below 2 T-SQL Queries, you can change the order by commenting out and uncommenting the 'ORDER BY' lines at the bottom of the query.
+
 ```SQL
 SELECT TOP 10 SUBSTRING(qt.TEXT, (qs.statement_start_offset/2)+1,
 ((CASE qs.statement_end_offset
@@ -48,7 +53,6 @@ ORDER BY qs.total_logical_reads DESC -- logical reads
 -- ORDER BY qs.total_logical_writes DESC -- logical writes
 -- ORDER BY qs.total_worker_time DESC -- CPU time
 ```
-> You can change the order by commenting out and uncommenting the 'ORDER BY' lines at the bottom of the query.
 
 <br>
 
