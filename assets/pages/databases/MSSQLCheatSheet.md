@@ -802,7 +802,10 @@ END;
 
 <br>
 
-## Microsoft's Recommendation for MaxDop in relation to NUMA nodes. 
+## MaxDOP in relation to NUMA nodes. 
+### Summary of MaxDOP
+![NUMA](../../../assets/images/NUMA.jpg)
+
 ### Summary of Config
 ```SQL
 SELECT @@SERVERNAME, 
@@ -839,8 +842,6 @@ Set the MAXDOP value to 8 if the number of logical processors is greater than ei
 ### For a server with multiple NUMA nodes:
 Set the MAXDOP value equal to or less than the number of logical processors per NUMA node if the server has less than or equal to sixteen logical processors per NUMA node.
 Set the MAXDOP value to half the number of logical processors if the processors exceed sixteen per NUMA node. At maximum, the MAXDOP value should be 16.
-
-![NUMA](../../../assets/images/NUMA.jpg)
 
 ### MaxDOP Calculator T-SQL
 [MaxDOP Calculator](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/maxdop_calculator_v2.sql)
