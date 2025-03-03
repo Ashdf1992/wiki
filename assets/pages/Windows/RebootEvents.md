@@ -23,7 +23,7 @@ function Get-RebootReport {
             }else{
         
             Get-WinEvent -ComputerName $Computer -FilterHashtable @{
-                logname='System'; id=1074} |
+                logname='System'; id=1074,6008} |
                     ForEach-Object {
                         $rv = New-Object PSObject |
                             Select-Object Date,
