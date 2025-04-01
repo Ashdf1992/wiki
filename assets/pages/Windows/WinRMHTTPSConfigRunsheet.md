@@ -106,6 +106,11 @@ That is it for the server configuration. We will return to the server when a loc
 <br>
 <br>
 
+### Enumerating listeners
+```Command Prompt
+winrm enumerate winrm/config/listener
+```
+
 ## Client Configuration
 Congratulations, you made it this far. This part of the guide is in relation to the client-side configuration. Essentially, the computer you want to use to remote connect to the server
 
