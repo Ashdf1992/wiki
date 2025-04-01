@@ -85,7 +85,12 @@ $serverCert
 -The final step for the Windows server is the addition of a secure WinRM listener. Execute the following command to create the listener. The hostname must match the hostname used when creating the server certificate, the thumbprint is the thumbprint of the SSL Certificate you generated above. 
 > (Important Info)Note that this command needs to be ran within Command Prompt, it will not work with Powershell:
 ```Command Prompt
-winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname="host_name";CertificateThumbprint="certificate_thumbprint"}
+winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="host_name";CertificateThumbprint="certificate_thumbprint"}'
+```
+
+-You may need to delete the old https listener you can do this using the following command
+```Command prompt
+winrm delete winrm/config/Listener?Address=*+Transport=HTTPS
 ```
 
 [Powershell]
