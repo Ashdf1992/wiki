@@ -123,6 +123,8 @@
 
 [- Get Full Windows Update History](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WindowsUpdateHistory.md)
 
+[- Get Windows Update History for All Computers within an AD Environment](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ADWU_Computers_History.md)
+
 <BR>
 
 ## Microsoft Articles Library
