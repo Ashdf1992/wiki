@@ -1,4 +1,4 @@
-# Checking Windows Updates on Computers Across an Active Directory Estate
+# Checking Windows Updates on Computers Across an Active Directory environment. 
 
 ## Powershell
 >Open Powershell or Powershell ISE
