@@ -56,7 +56,7 @@ Write-Output $_
 #Remove null records and only return the fields we want
 $history |
 Where-Object {![String]::IsNullOrWhiteSpace($_.title)} |
-Select-Object Result, Date, Title, SupportUrl, Product, UpdateId, RevisionNumber
+Select-Object Result, Date, Title, SupportUrl, Product, UpdateId, RevisionNumber -unique
 }
 ```
 ## Get Full Windows Update Log:
