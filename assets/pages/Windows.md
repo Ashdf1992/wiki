@@ -9,6 +9,8 @@
 
 [- Get DNS Servers for all Servers within a Domain](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-DNSServer-Check.md)
 
+[- Check AD Replication](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Replication.md)
+
 
 <br>
 
