@@ -11,6 +11,8 @@
 
 [- Check AD Replication](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Replication.md)
 
+[- Check AD Services](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Services.md)
+
 
 <br>
 
