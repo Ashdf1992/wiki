@@ -902,3 +902,116 @@ ORDER BY db.name;
 
 ```
 
+## SQL Server Healthcheck
+```SQL
+-- 1. Instance Info
+SELECT 
+    SERVERPROPERTY('MachineName') AS MachineName,
+    SERVERPROPERTY('ServerName') AS ServerName,
+    SERVERPROPERTY('Edition') AS Edition,
+    SERVERPROPERTY('ProductVersion') AS ProductVersion,
+    sqlserver_start_time AS SQLServerStartTime
+FROM sys.dm_os_sys_info;
+
+-- 2. Database Status
+SELECT 
+    db.name AS DatabaseName,
+    db.state_desc AS Status,
+    db.recovery_model_desc AS RecoveryModel,
+    CONVERT(DECIMAL(10,2), SUM(mf.size) * 8.0 / 1024) AS SizeMB
+FROM sys.databases db
+JOIN sys.master_files mf ON db.database_id = mf.database_id
+GROUP BY db.name, db.state_desc, db.recovery_model_desc;
+
+-- 3. Backup Status
+SELECT 
+    db.name AS DatabaseName,
+    MAX(CASE WHEN bs.type = 'D' THEN bs.backup_finish_date END) AS LastFullBackup,
+    MAX(CASE WHEN bs.type = 'I' THEN bs.backup_finish_date END) AS LastDiffBackup,
+    MAX(CASE WHEN bs.type = 'L' THEN bs.backup_finish_date END) AS LastLogBackup
+FROM sys.databases db
+LEFT JOIN msdb.dbo.backupset bs ON db.name = bs.database_name
+GROUP BY db.name;
+
+-- 4. Memory Usage
+SELECT 
+    total_physical_memory_kb / 1024 AS TotalMemoryMB,
+    available_physical_memory_kb / 1024 AS AvailableMemoryMB,
+    system_memory_state_desc
+FROM sys.dm_os_sys_memory;
+
+-- 5. CPU Usage (corrected)
+/* ============================================
+   CPU Utilization Snapshot from Ring Buffers
+   ============================================ */
+
+-- Get current system tick count
+DECLARE @ts_now BIGINT;
+SELECT @ts_now = ms_ticks FROM sys.dm_os_sys_info;
+
+-- Extract CPU usage details from ring buffers
+SELECT 
+    y.record_id AS [Record ID],
+    DATEADD(ms, (y.[timestamp] - @ts_now), GETDATE()) AS [Event Time],
+    y.SQLProcessUtilization AS [SQL Server CPU %],
+    y.SystemIdle AS [System Idle %],
+    (100 - y.SystemIdle - y.SQLProcessUtilization) AS [Other Processes CPU %]
+FROM (
+    SELECT
+        record.value('(./Record/@id)[1]', 'int') AS record_id,
+        record.value('(./Record/SchedulerMonitorEvent/SystemHealth/SystemIdle)[1]', 'int') AS SystemIdle,
+        record.value('(./Record/SchedulerMonitorEvent/SystemHealth/ProcessUtilization)[1]', 'int') AS SQLProcessUtilization,
+        [timestamp]
+    FROM (
+        SELECT 
+            [timestamp], 
+            CONVERT(XML, record) AS record
+        FROM sys.dm_os_ring_buffers
+        WHERE ring_buffer_type = N'RING_BUFFER_SCHEDULER_MONITOR'
+          AND record LIKE '%<SystemHealth>%'
+    ) AS x
+) AS y
+ORDER BY y.record_id DESC;
+
+-- 6. Log Space Usage
+SELECT 
+    DB_NAME(database_id) AS DatabaseName,
+    ROUND(total_log_size_in_bytes / 1024.0 / 1024.0 / 1024.0, 2) AS TotalLogSizeGB,
+    ROUND(used_log_space_in_percent, 2) AS UsedLogPercent,
+    ROUND((total_log_size_in_bytes / 1024.0 / 1024.0) * (1 - used_log_space_in_percent / 100.0), 2) AS TruncatableLogSpaceMB
+FROM sys.dm_db_log_space_usage;
+
+
+-- 7. Recent SQL Agent Job Failures
+SELECT 
+    j.name AS [Job Name],
+    h.run_date,
+    h.run_time,
+    h.run_status,
+    CASE h.run_status
+        WHEN 0 THEN 'Failed'
+        WHEN 1 THEN 'Succeeded'
+        WHEN 2 THEN 'Retry'
+        WHEN 3 THEN 'Canceled'
+        ELSE 'Unknown'
+    END AS [Status]
+FROM msdb.dbo.sysjobhistory h
+JOIN msdb.dbo.sysjobs j ON h.job_id = j.job_id
+WHERE h.run_status = 0
+  AND h.run_date >= CONVERT(INT, CONVERT(VARCHAR(8), GETDATE()-1, 112))
+ORDER BY h.run_date DESC, h.run_time DESC;
+
+-- 8. SQL Server Error Log Summary (last 24 hours)
+DECLARE @StartTime DATETIME = DATEADD(HOUR, -24, GETDATE());
+DECLARE @EndTime DATETIME = GETDATE();
+EXEC xp_readerrorlog 
+    0,                  -- Current error log
+    1,                  -- SQL Server log (1 = SQL Server, 2 = SQL Agent)
+    NULL,               -- Search string 1 (NULL = no filter)
+    NULL,               -- Search string 2 (NULL = no filter)
+    @StartTime,         -- Start time
+    @EndTime,           -- End time
+    N'desc';            -- Sort order (N'desc' = newest first)
+
+```
+
