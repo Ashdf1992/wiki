@@ -13,6 +13,8 @@
 
 [- Check AD Services](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Services.md)
 
+[- Domain Controller Health Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DC-Healthcheck.md)
+
 <br>
 
 ## Azure
