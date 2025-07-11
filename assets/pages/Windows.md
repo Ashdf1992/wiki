@@ -13,6 +13,10 @@
 
 [- Check AD Services](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Services.md)
 
+<br>
+
+## Azure
+[- Basic Azure ARC Template](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Azure-ARC-Template.md)
 
 <br>
 
