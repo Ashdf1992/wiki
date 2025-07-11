@@ -853,3 +853,52 @@ ComputerNamePhysicalNetBIOS is the NetBIOS name of the machine where the SQL Ser
 NOTE: The requirement to execute this T-SQL script is to have SQLCMD mode enabled in SSMS
 ![SQLCMD](../../../assets/images/SQLCMD-mode.gif)
 
+<br>
+
+## Check DB Backups, Check the DB log File, and how much the log file can be truncated 
+```SQL
+WITH BackupInfo AS (
+    SELECT 
+        database_name,
+        MAX(CASE WHEN type = 'D' THEN backup_finish_date END) AS LastFullBackup,
+        MAX(CASE WHEN type = 'I' THEN backup_finish_date END) AS LastDiffBackup,
+        MAX(CASE WHEN type = 'L' THEN backup_finish_date END) AS LastLogBackup
+    FROM msdb.dbo.backupset
+    GROUP BY database_name
+),
+LogInfo AS (
+    SELECT 
+        DB_NAME(database_id) AS DatabaseName,
+        SUM(size) * 8 / 1024 AS LogSizeMB,
+        SUM(CASE WHEN type_desc = 'LOG' THEN size END) * 8 / 1024 AS LogFileSizeMB
+    FROM sys.master_files
+    WHERE type_desc = 'LOG'
+    GROUP BY database_id
+),
+LogSpace AS (
+    SELECT 
+        DB_NAME(database_id) AS DatabaseName,
+        total_log_size_in_bytes / 1024 / 1024 AS TotalLogSizeMB,
+        ROUND(used_log_space_in_percent, 2) AS used_log_space_in_percent,
+        ROUND((total_log_size_in_bytes / 1024.0 / 1024.0) * (1 - used_log_space_in_percent / 100.0), 2) AS TruncatableLogSpaceMB
+    FROM sys.dm_db_log_space_usage
+)
+
+SELECT 
+    db.name AS DatabaseName,
+    b.LastFullBackup,
+    b.LastDiffBackup,
+    b.LastLogBackup,
+    l.LogFileSizeMB,
+    ls.TotalLogSizeMB,
+    ls.used_log_space_in_percent,
+    ls.TruncatableLogSpaceMB
+FROM sys.databases db
+LEFT JOIN BackupInfo b ON db.name = b.database_name
+LEFT JOIN LogInfo l ON db.name = l.DatabaseName
+LEFT JOIN LogSpace ls ON db.name = ls.DatabaseName
+WHERE db.state_desc = 'ONLINE'
+ORDER BY db.name;
+
+```
+
