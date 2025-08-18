@@ -49,6 +49,8 @@
 
 [- Get WWNs for Disks](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ListWWN.md)
 
+[- Nicer VSS Writers Summary](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/VSSWriters.md)
+
 <br>
 
 ## Group Policy
