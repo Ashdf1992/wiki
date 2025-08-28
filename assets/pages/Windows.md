@@ -65,6 +65,8 @@
 
 [- Get All IIS Site Bindings that are using 443/HTTPS](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISHTTPSBindings.md)
 
+[- IIS Site Connections](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISSiteConnections.md)
+
 <br>
 
 ## Net Framework
