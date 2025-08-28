@@ -1,5 +1,13 @@
 # Checking the total number of connections to sites within IIS
 
+
+## Notes:
+You can change $cutoffDate = (Get-Date).AddDays(-30) to specify the number of days you want to check for connections. By default its set to 30 days in the past. 
+<br>
+<br>
+You can change the http response code by altering this line. $connectionCount = (Get-Content $file | Select-String "- 200").Count. By default its set to '- 200', this can be changed to '- 500' or '- 301', or any other http response code. 
+
+
 ## V1 - Connections referencing each log file
 ### Powershell
 >Open Powershell or Powershell ISE
