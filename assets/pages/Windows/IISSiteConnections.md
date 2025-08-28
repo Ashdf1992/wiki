@@ -131,7 +131,6 @@ testsite                                         21
 ═══════════════════════════════════════════════════════════════
 Total Connections                                21
 ═══════════════════════════════════════════════════════════════
-----------------------------------------
 ```
 
 ## V3 - A summary showing all sites, and their cumulative number of connections
