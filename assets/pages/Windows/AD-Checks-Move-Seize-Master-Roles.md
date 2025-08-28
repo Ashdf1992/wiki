@@ -1,17 +1,22 @@
-# Check DCs and Operations Masters
+# 🏢 Check DCs and Operations Masters
 
-<i> Revision: 1.2 </i>
-<br>
-<i>Relevent Products & Services : Active Directory, FSMO Roles</i>
-<br>
-<i>Environment: Powershell</i>
+*Revision: 1.2*  
+*Relevant Products & Services: Active Directory, FSMO Roles*  
+*Environment: PowerShell*
 
-<br>
-<br>
+---
 
-## This article outlines some commands that can be ran to review the current owner of the FSMO roles, it also outlines how to check for replication, and then outlines the commands required to move or seize the FSMO roles.
+## 📋 Overview
 
-# Check the FSMO roles v2
+This article outlines commands to:
+- Review the current owner of FSMO roles
+- Check for replication health
+- Move or seize FSMO roles
+
+---
+
+## 🔍 Check FSMO Roles (Enhanced)
+
 ``` Powershell
 # Enhanced FSMO Role Display Script
 
@@ -49,33 +54,35 @@ catch {
 
 ```
 
-<br>
+---
 
-# Check the FSMO roles v1 (legacy)
+## 🕹️ Check FSMO Roles (Legacy)
 ``` Powershell
 netdom query fsmo
 ```
 
-<br>
+---
 
-# Check AD replication
+## 🔄 Check AD Replication
 > (Warning) Always check replication prior to moving the FSMO roles. Ensure that all of the servers have good replication health, unless one of your Domain Controllers is offline. 
 ``` Powershell
 repadmin /showrepl
 ```
 
-<br>
+---
 
-# Move Operation Master Roles
+## 🚚 Move Operation Master Roles
 ``` Powershell
 Move-ADDirectoryServerOperationMasterRole -Identity "Enter the Name of a DC here" -OperationMasterRole SchemaMaster, DomainNamingMaster, PDCEmulator, RIDMaster, InfrastructureMaster
 ```
 
-<br>
+---
 
-# Seize Operation Master Roles
-> (Info) This command will allow you to seize the Master Roles, in the event that a DC has been tombstoned and the roles are still on the Tombstoned DC. Note the -force flag.
-> (Warning) Use the following command with caution, and only use it if you are unable to move the roles. Seizing the roles should be a last resort. !!
+## 🛑 Seize Operation Master Roles
+> **ℹ️ Info:**  
+> Use this command to seize Master Roles if a DC is tombstoned and roles are still assigned to it.  
+> **⚠️ Warning:**  
+> Use with caution and only if you cannot move the roles. Seizing should be a last resort!
 ``` Powershell
 Move-ADDirectoryServerOperationMasterRole -Identity "Enter the Name of a DC here" -OperationMasterRole SchemaMaster, DomainNamingMaster, PDCEmulator, RIDMaster, InfrastructureMaster -Force
 ```
