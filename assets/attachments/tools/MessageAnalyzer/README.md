@@ -1,6 +1,8 @@
 # Microsoft Message Analyzer EOL Archive
 
-![Message Analyzer splash screen](misc/splash.gif)
+<p align="center">
+    <img src="misc/splash.gif" alt="Message Analyzer splash screen">
+</p>
 
 ## License
 

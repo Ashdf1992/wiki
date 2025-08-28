@@ -850,6 +850,7 @@ ComputerNamePhysicalNetBIOS is the NetBIOS name of the machine where the SQL Ser
 ### MaxDOP Calculator T-SQL
 [MaxDOP Calculator](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/maxdop_calculator_v2.sql)
 <br>
+<br>
 NOTE: The requirement to execute this T-SQL script is to have SQLCMD mode enabled in SSMS
 ![SQLCMD](../../../assets/images/SQLCMD-mode.gif)
 
