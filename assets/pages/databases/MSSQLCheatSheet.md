@@ -581,6 +581,77 @@ ORDER BY SizeMB;
 
 <br>
 
+## Get Transaction Log Size, and check if the T-Log can be shrank
+```SQL
+USE master;
+GO
+
+-- Declare variables to capture log space values
+DECLARE @LogSizeMB decimal(15, 2);
+DECLARE @UsedLogMB decimal(15, 2);
+DECLARE @FreeLogMB decimal(15, 2);
+
+-- Cursor to iterate through user databases (excluding system databases, offline, or inaccessible)
+DECLARE @dbname sysname;
+DECLARE @sql nvarchar(max);
+DECLARE @params nvarchar(max);
+
+DECLARE db_cursor CURSOR LOCAL FAST_FORWARD FOR
+    SELECT name 
+    FROM sys.databases 
+    WHERE database_id > 4  -- Exclude system databases
+      AND state = 0        -- Online databases only
+      AND is_read_only = 0; -- Exclude read-only databases
+
+OPEN db_cursor;
+FETCH NEXT FROM db_cursor INTO @dbname;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Compact dynamic SQL without newlines or comments to avoid parsing issues
+    SET @sql = N'USE ' + QUOTENAME(@dbname) + N'; SELECT @LogSizeMB_out = total_log_size_in_bytes / 1048576.0, @UsedLogMB_out = used_log_space_in_bytes / 1048576.0, @FreeLogMB_out = (total_log_size_in_bytes - used_log_space_in_bytes) / 1048576.0 FROM sys.dm_db_log_space_usage;';
+    
+    SET @params = N'@LogSizeMB_out decimal(15,2) OUTPUT, @UsedLogMB_out decimal(15,2) OUTPUT, @FreeLogMB_out decimal(15,2) OUTPUT';
+    
+    BEGIN TRY
+        EXEC sp_executesql @sql, @params, 
+            @LogSizeMB_out = @LogSizeMB OUTPUT, 
+            @UsedLogMB_out = @UsedLogMB OUTPUT, 
+            @FreeLogMB_out = @FreeLogMB OUTPUT;
+        
+        -- Output the results for this database
+        SELECT 
+            @dbname AS DatabaseName,
+            @LogSizeMB AS LogSizeMB,
+            @UsedLogMB AS UsedLogMB,
+            @FreeLogMB AS FreeLogMB,
+            CASE 
+                WHEN @FreeLogMB > 10 THEN 'Yes'  -- Arbitrary threshold of 10 MB for meaningful shrink
+                ELSE 'No' 
+            END AS CanShrink,
+            @FreeLogMB AS ShrinkAmountMB;
+    END TRY
+    BEGIN CATCH
+        -- If the database is inaccessible, output a row indicating the error
+        SELECT 
+            @dbname AS DatabaseName,
+            0 AS LogSizeMB,
+            0 AS UsedLogMB,
+            0 AS FreeLogMB,
+            'Error' AS CanShrink,
+            ERROR_MESSAGE() AS ShrinkAmountMB;
+    END CATCH;
+
+    FETCH NEXT FROM db_cursor INTO @dbname;
+END;
+
+CLOSE db_cursor;
+DEALLOCATE db_cursor;
+GO
+```
+
+<br>
+
 ## Show All Databases in an availability group visible to this server where this Server is the primary replica
 ```SQL
 SELECT
