@@ -17,6 +17,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 - [Check AD Replication](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Replication.md)
 - [Check AD Services](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Services.md)
 - [Domain Controller Health Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DC-Healthcheck.md)
+- [Domain Controller Interconnectivity Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DC-NetworkCheck.md)
 
 ---
 
