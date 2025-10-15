@@ -145,6 +145,7 @@ if ($afterResults) {
 }
 
 # --- Optional CSV exports:
+ $dir = "C:\Temp"; if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir }
  $beforeResults | Export-Csv "C:\Temp\BeforeReboot.csv" -NoTypeInformation
  $afterResults  | Export-Csv "C:\Temp\AfterReboot.csv"  -NoTypeInformation
 
