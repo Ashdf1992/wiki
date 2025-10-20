@@ -94,6 +94,25 @@ Write-Host " Check Complete" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 ```
 
+## Pre-seed Data
+Running from ASH-WEB-01, copying data to ASH-WEB-02, excluding DFSR Private
+``` Powershell
+# Define source and destination paths
+$Source      = "D:\IIS-Content\"
+$Destination = "\\ASH-WEB-02\d$\IIS-Content\"
+ 
+# Robocopy options:
+# /MIR      - Mirror source to destination (includes subdirectories)
+# /COPYALL  - Copy all file info (data, attributes, timestamps, security, owner, audit)
+# /R:3      - Retry 3 times on failure
+# /W:5      - Wait 5 seconds between retries
+# /XD       - Exclude directory (DfsrPrivate)
+# /LOG      - Optional: log output to a file
+# /MT:16    - Multi-threaded copy (16 threads for speed)
+ 
+Robocopy $Source $Destination /TEE /V /MIR /COPYALL /R:3 /W:5 /XD "DfsrPrivate" /MT:16 /LOG:"C:\Robocopy_Preseed.log"
+```
+
 ## Clearing the DFS Replication Database
 
 Occasionally, you may need to reset the DFS Replication (DFSR) database on a volume to resolve replication issues. Follow these steps carefully:
