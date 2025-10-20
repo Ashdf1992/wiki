@@ -26,6 +26,11 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 
 ---
 
+## 🔄 DFS
+- [DFS Cheatsheet](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DFS_Cheatsheet.md)
+
+---
+
 ## ✉️ Exchange
 - [Exchange Cheat Sheet](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ExchangeCheatSheet.md)
 
