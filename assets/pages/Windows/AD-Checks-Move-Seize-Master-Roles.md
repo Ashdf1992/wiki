@@ -71,7 +71,29 @@ repadmin /showrepl
 
 ---
 
-## 🚚 Move Operation Master Roles
+## 🚚 Move Operation Master Roles V2
+``` Powershell
+# Get all Domain Controllers
+$DCs = Get-ADDomainController -Filter * | Select-Object -ExpandProperty Name
+
+# Display DCs and let user choose one
+Write-Host "Available Domain Controllers:" -ForegroundColor Cyan
+$SelectedDC = $DCs | Out-GridView -Title "Select a Domain Controller" -PassThru
+
+if ($SelectedDC) {
+    Write-Host "Moving FSMO roles to $SelectedDC..." -ForegroundColor Yellow
+    Move-ADDirectoryServerOperationMasterRole -Identity $SelectedDC `
+        -OperationMasterRole SchemaMaster, DomainNamingMaster, PDCEmulator, RIDMaster, InfrastructureMaster
+    Write-Host "FSMO roles successfully moved to $SelectedDC." -ForegroundColor Green
+} else {
+    Write-Host "No Domain Controller selected. Operation cancelled." -ForegroundColor Red
+}
+
+```
+
+---
+
+## 🚚 Move Operation Master Roles V1
 ``` Powershell
 Move-ADDirectoryServerOperationMasterRole -Identity "Enter the Name of a DC here" -OperationMasterRole SchemaMaster, DomainNamingMaster, PDCEmulator, RIDMaster, InfrastructureMaster
 ```
