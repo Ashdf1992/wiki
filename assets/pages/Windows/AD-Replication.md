@@ -1,9 +1,10 @@
-# Checking AD Replication
+# Checking AD Replication 🔁🕵️‍♂️
 
 ## Version 1.0
->Open Powershell or Powershell ISE
+> Open PowerShell or PowerShell ISE ▶️
 
->Run the Following
+> Run the following script to check replication status across domain controllers. The script queries partner metadata and replication failures, then prints a concise summary for each DC.
+
 ```Powershell
 # Ensure the Active Directory module is available
 Import-Module ActiveDirectory
@@ -44,3 +45,20 @@ foreach ($dc in $domainControllers) {
 }
 
 ```
+
+## Purpose 📝
+Quickly audit AD replication health across all domain controllers and surface any recent failures.
+
+## Output format 📤
+- Console output per DC with partner names and last successful replication times.
+- If failures exist, details include partner, first failure time, failure count and last error.
+
+## Requirements ⚠️
+- Run with an account that can query Active Directory.
+- RSAT / ActiveDirectory PowerShell module installed.
+
+## Tips & Best Practices 💡
+- Run from a management workstation or DC with necessary privileges.
+- Consider redirecting output to a file for historical tracking:
+  - Example: run the script and pipe or capture output to a dated TXT/CSV.
+- Investigate failures promptly — replication issues can lead to inconsistent AD data.

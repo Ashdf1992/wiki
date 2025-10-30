@@ -1,9 +1,25 @@
-# Checking Windows Updates on Computers Across an Active Directory environment. 
+# Checking Windows Updates on Computers Across an Active Directory environment 🔄🖥️
 
-## Powershell
->Open Powershell or Powershell ISE
+Quick utility to gather recent update history and pending updates from computers in specified AD OUs and export results to CSV.
 
->Run the Following
+---
+
+## Prerequisites ✅
+- Run with an account that can query Active Directory and remote systems.  
+- Ensure the PSWindowsUpdate module is installed on the machine running the checks.  
+- Replace the placeholder OU distinguished names with your domain details before running.
+
+---
+
+## Quick steps ▶️
+1. Edit the OU variables in the script to match your environment.  
+2. Open PowerShell (run as Administrator if required).  
+3. Paste and run the script below.  
+4. Results are exported to C:\temp\UpdateResults.csv by default.
+
+---
+
+## Script 🧾
 ```Powershell
 # Specify the Organizational Units (OUs) where computers are located
 $computerOU = "CN=Computers,DC=ENTERYOURDOMAINDETAILS,DC=ENTERYOURDOMAINDETAILS,DC=ENTERYOURDOMAINDETAILS"
@@ -117,3 +133,17 @@ $results | Export-Csv -Path "C:\temp\UpdateResults.csv" -NoTypeInformation
  
 Write-Host "Results exported to C:\temp\UpdateResults.csv" -ForegroundColor Green
 ```
+
+---
+
+## Output 📤
+- CSV at C:\temp\UpdateResults.csv with rows for Recent Update, Pending Update, or Error per computer.  
+- Console progress messages show which computer is being checked.
+
+---
+
+## Tips & Notes 💡
+- Replace the OU placeholders (DC=ENTERYOURDOMAINDETAILS...) with your actual domain DN. 🔧  
+- Ensure C:\temp exists or change the export path. 🗂️  
+- Run the script from a management host with network access to target machines. 🌐  
+- Install PSWindowsUpdate if missing: Install-Module -Name PSWindowsUpdate -Force (run as Admin). ➕

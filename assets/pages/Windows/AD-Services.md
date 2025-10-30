@@ -1,9 +1,23 @@
-# Check the current status of Active Directory Services
+# Check the current status of Active Directory Services 🔍🛠️
 
-## Powershell
->Open Powershell or Powershell ISE
+Quick utility to verify common Active Directory–related Windows services on a server (Domain Controller or management host).
 
->Run the Following
+---
+
+## Prerequisites ✅
+- Run with an account that can query local services (start PowerShell as Administrator if needed).  
+- Best run on a Domain Controller or a machine that manages DCs.
+
+---
+
+## How to run ▶️
+1. Open PowerShell or PowerShell ISE.  
+2. Paste and run the script below.  
+3. Review the colored output: green = Running, red = Not running, yellow = Not found.
+
+---
+
+## Script 🧾
 ```Powershell
 # List of common Active Directory-related services
 $adServices = @(
@@ -27,3 +41,17 @@ foreach ($serviceName in $adServices) {
     }
 }
 ```
+
+---
+
+## Output — What to expect 📤
+- Each listed service prints its display name, service name, and current status.  
+- Green indicates the service is running; red indicates stopped/other; yellow means the service is not installed on the host.
+
+---
+
+## Tips & Notes 💡
+- If a critical service (e.g., NTDS, DNS, Netlogon) is not running, investigate event logs and service dependencies.  
+- You can adapt the $adServices array to include additional services specific to your environment.  
+- To capture the output to a file, redirect PowerShell output, e.g.:  
+  PowerShell.exe -File .\Check-AD-Services.ps1 > AD-Services-Status.txt
