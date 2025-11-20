@@ -38,6 +38,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 
 ## 🗄️ Failover Cluster Manager
 - [Failover Cluster Internode Network Connectivity Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FoCNetworkCheck.md)
+- [Failover Cluster Health Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/FoCHealthCheck.md)
 
 ---
 
