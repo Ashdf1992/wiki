@@ -122,8 +122,8 @@ process {
         foreach ($n in $nodes) {
             $nodeInfo = [ordered]@{
                 Name          = $n.Name
-                State         = $n.State
-                DrainStatus   = $n.DrainStatus
+                State         = $n.State               # Up/Down/Paused
+                DrainStatus   = $n.DrainStatus         # None/NotInitiated/Draining/Drained
                 IsPaused      = ($n.State -eq 'Paused')
                 DynamicWeight = $n.DynamicWeight
             }
@@ -138,7 +138,7 @@ process {
         foreach ($net in $nets) {
             $netInfo = [ordered]@{
                 Name    = $net.Name
-                Role    = $net.Role
+                Role    = $net.Role            # Cluster/Client/None
                 Address = $net.Address
                 Metric  = $net.Metric
                 State   = $net.State
@@ -150,6 +150,7 @@ process {
         # Groups & Resources
         $groups = Get-ClusterGroup -Cluster $cl | Sort-Object Name
         foreach ($g in $groups) {
+            # Preferred owners – tolerate Name or NodeName
             $ownerNodesRaw = $g | Get-ClusterOwnerNode
             $preferredOwners = $ownerNodesRaw | ForEach-Object {
                 if ($_.PSObject.Properties.Match('Name').Count -gt 0) { $_.Name }
@@ -159,7 +160,7 @@ process {
 
             $grpInfo = [ordered]@{
                 Name            = $g.Name
-                State           = $g.State
+                State           = $g.State               # Online/Offline/Failed/PartialOnline
                 OwnerNode       = $g.OwnerNode
                 PreferredOwners = $preferredOwners
             }
@@ -189,7 +190,7 @@ process {
             }
         }
 
-        # CSVs
+        # CSVs (if any)
         $csvs = Get-ClusterSharedVolume -Cluster $cl -ErrorAction SilentlyContinue
         foreach ($csv in ($csvs | Sort-Object Name)) {
             $csvInfo = [ordered]@{
@@ -204,9 +205,14 @@ process {
             if ($csv.SharedVolumeInfo.RedirectedAccess) { Add-Finding -Level 'Warning' -Message "CSV '$($csv.Name)' is in Redirected I/O mode." }
         }
 
-        # === Fix A: Safe event checks ===
+        # === Fix A: Safe event checks (no -ListProvider *) ===
         $cutoff = (Get-Date).AddHours(-1 * $MaxEventHours)
-        $requestedProviders = @('Microsoft-Windows-FailoverClustering','Disk','Ntfs','Microsoft-Windows-NetworkProfile')
+        $requestedProviders = @(
+            'Microsoft-Windows-FailoverClustering',
+            'Disk',
+            'Ntfs',
+            'Microsoft-Windows-NetworkProfile'
+        )
 
         foreach ($n in $nodes) {
             try {
@@ -219,7 +225,7 @@ process {
                             StartTime    = $cutoff
                         } -MaxEvents 1 -ErrorAction Stop
                         if ($probe) { $providersToQuery += $p }
-                    } catch { }
+                    } catch { } # silently skip absent providers
                 }
 
                 $events = if ($providersToQuery.Count -gt 0) {
@@ -229,6 +235,7 @@ process {
                         StartTime    = $cutoff
                     } -ErrorAction Stop | Select-Object TimeCreated, ProviderName, Id, LevelDisplayName, Message
                 } else {
+                    # Fallback: System errors only
                     Get-WinEvent -ComputerName $n.Name -FilterHashtable @{
                         LogName   = 'System'
                         StartTime = $cutoff
@@ -242,6 +249,7 @@ process {
                     Sample = ($events | Select-Object -First 10)
                 }
 
+                # Flag common WSFC error IDs
                 $errIds = $events | Where-Object { $_.LevelDisplayName -eq 'Error' -or $_.Id -in (1205,1069,1135,1137,1146) }
                 if ($errIds) {
                     Add-Finding -Level 'Warning' -Message "Node '$($n.Name)' has $($errIds.Count) recent cluster/storage/network errors."
@@ -251,7 +259,7 @@ process {
             }
         }
 
-        # Recommendations
+        # Recommendations (simple examples)
         if ($summary.Networks | Where-Object { $_.Role -eq 'Cluster' -and $_.Metric -gt 1000 }) {
             $summary.Recommendations += "Review cluster network metrics; ensure heartbeat network has lowest metric."
         }
@@ -268,17 +276,21 @@ process {
         $jsonPath = Join-Path $OutputPath 'HealthSummary.json'
         $summary | ConvertTo-Json -Depth 6 | Out-File -FilePath $jsonPath -Encoding UTF8
 
-        # Optional: Cluster log
+        # Optional: Cluster log (read-only)
         if ($IncludeClusterLog) {
-            try { Get-ClusterLog -Cluster $cl -UseLocalTime -Destination $OutputPath | Out-Null } catch { }
+            try {
+                Get-ClusterLog -Cluster $cl -UseLocalTime -Destination $OutputPath | Out-Null
+            } catch {
+                Add-Finding -Level 'Warning' -Message "Failed to collect cluster log: $($_.Exception.Message)"
+            }
         }
 
-        # ---- HTML Overview ----
+        # ---- HTML (Overview) ----
         $htmlPath = Join-Path $OutputPath 'HealthSummary.html'
         $badgeColor = switch ($summary.OverallState) {
-            'Healthy'  { '#2e7d32' }
-            'Warning'  { '#ed6c02' }
-            'Degraded' { '#c62828' }
+            'Healthy'  { '#2e7d32' }  # green
+            'Warning'  { '#ed6c02' }  # amber
+            'Degraded' { '#c62828' }  # red
             default    { '#555555' }
         }
 
@@ -290,37 +302,104 @@ process {
 <title>Cluster Health Overview</title>
 <style>
 body { font-family: Segoe UI, Arial; margin: 24px; color: #202124; }
+h1, h2 { color: #1f2937; }
 .badge { display:inline-block; padding:6px 10px; border-radius:16px; color:#fff; font-weight:600; }
+.card { border:1px solid #e5e7eb; border-radius:8px; padding:16px; margin-bottom:16px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
 table { border-collapse: collapse; width: 100%; margin-top:10px; }
 th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: left; font-size: 14px; }
 th { background-color: #f9fafb; }
 li.error { color:#c62828; }
 li.warning { color:#ed6c02; }
+.nav { margin-bottom: 16px; }
+.nav a { margin-right: 12px; text-decoration:none; color:#2563eb; }
+.footer { color:#6b7280; font-size:12px; margin-top:24px; }
 </style>
 </head>
 <body>
 <h1>Cluster Health Overview</h1>
-<p><strong>Cluster:</strong> $($summary.ClusterName)</p>
-<p><strong>Generated:</strong> $($summary.Timestamp)</p>
-<p><strong>Overall State:</strong> <span class="badge" style="background:$badgeColor">$($summary.OverallState)</span></p>
-<p><a href="HealthDetails.html">View Detailed Report</a></p>
-<h2>Nodes</h2>
-<table><tr><th>Name</th><th>State</th><th>DrainStatus</th></tr>
+<div class="card">
+  <p><strong>Cluster:</strong> $($summary.ClusterName)</p>
+  <p><strong>Generated:</strong> $($summary.Timestamp)</p>
+  <p><strong>Overall State:</strong> <span class="badge" style="background:$badgeColor">$($summary.OverallState)</span></p>
+  <div class="nav">
+    <a href="HealthDetails.html">View detailed report</a> |
+    <a href="HealthSummary.json">Download JSON</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Nodes</h2>
+  <table>
+    <tr><th>Name</th><th>State</th><th>DrainStatus</th><th>Paused</th></tr>
 "@
         foreach ($n in $summary.Nodes) {
-            $overviewHtml += "<tr><td>$($n.Name)</td><td>$($n.State)</td><td>$($n.DrainStatus)</td></tr>"
+            $paused = if ($n.IsPaused) { 'Yes' } else { 'No' }
+            $overviewHtml += "<tr><td>$($n.Name)</td><td>$($n.State)</td><td>$($n.DrainStatus)</td><td>$paused</td></tr>`n"
         }
-        $overviewHtml += "</table></body></html>"
+        $overviewHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Networks</h2>
+  <table>
+    <tr><th>Name</th><th>State</th><th>Role</th><th>Address</th><th>Metric</th></tr>
+"@
+        foreach ($net in $summary.Networks) {
+            $overviewHtml += "<tr><td>$($net.Name)</td><td>$($net.State)</td><td>$($net.Role)</td><td>$($net.Address)</td><td>$($net.Metric)</td></tr>`n"
+        }
+        $overviewHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Findings</h2>
+  <ul>
+"@
+        foreach ($f in $summary.Findings) {
+            $cls = if ($f.Level -eq 'Error') { 'error' } elseif ($f.Level -eq 'Warning') { 'warning' } else { '' }
+            $overviewHtml += "<li class='$cls'>[$($f.Level)] $($f.Message)</li>`n"
+        }
+        $overviewHtml += @"
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Recommendations</h2>
+  <ul>
+"@
+        foreach ($rec in $summary.Recommendations) {
+            $overviewHtml += "<li>$rec</li>`n"
+        }
+        $overviewHtml += @"
+  </ul>
+</div>
+
+<div class="footer">
+  <em>Report generated without modifying cluster state.</em>
+</div>
+</body>
+</html>
+"@
+
         $overviewHtml | Out-File -FilePath $htmlPath -Encoding UTF8
 
-        # ---- HTML Details ----
+        # ---- HTML (Detailed; reads JSON back) ----
         $detailsPath = Join-Path $OutputPath 'HealthDetails.html'
         $jsonObj = Get-Content -Path $jsonPath -Raw | ConvertFrom-Json
 
+        # Helper: encode JSON samples safely for HTML
         function Encode-ForHtml {
             param([string]$Text)
             if ($null -eq $Text) { return '' }
             return ($Text -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' -replace "'","&#39;")
+        }
+
+        $badgeColorDetail = switch ($jsonObj.OverallState) {
+            'Healthy'  { '#2e7d32' }
+            'Warning'  { '#ed6c02' }
+            'Degraded' { '#c62828' }
+            default    { '#555555' }
         }
 
         $detailsHtml = @"
@@ -331,39 +410,184 @@ li.warning { color:#ed6c02; }
 <title>Cluster Health Details</title>
 <style>
 body { font-family: Segoe UI, Arial; margin: 24px; color: #202124; }
-details summary { cursor: pointer; font-weight:600; padding:6px; background:#f3f4f6; border-radius:4px; margin-bottom:6px; }
-details[open] summary { background:#e5e7eb; }
+h1, h2, h3 { color: #1f2937; }
+.badge { display:inline-block; padding:6px 10px; border-radius:16px; color:#fff; font-weight:600; }
+.card { border:1px solid #e5e7eb; border-radius:8px; padding:16px; margin-bottom:16px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
 table { border-collapse: collapse; width: 100%; margin-top:10px; }
-th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: left; font-size: 14px; }
+th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: left; font-size: 14px; vertical-align: top; }
 th { background-color: #f9fafb; }
-.badge-ok { background:#6b7280; color:#fff; padding:2px 8px; border-radius:12px; }
+li.error { color:#c62828; }
+li.warning { color:#ed6c02; }
+.nav { margin-bottom: 16px; }
+.nav a { margin-right: 12px; text-decoration:none; color:#2563eb; }
+.footer { color:#6b7280; font-size:12px; margin-top:24px; }
+details summary { cursor: pointer; font-weight:600; }
+.codebox { background:#0b1022; color:#e6edf3; padding:12px; border-radius:6px; overflow:auto; font-family: Consolas, Menlo, monospace; font-size:13px; }
+.badge-ok { background:#2e7d32; color:#fff; padding:2px 8px; border-radius:12px; }
 .badge-warn { background:#ed6c02; color:#fff; padding:2px 8px; border-radius:12px; }
 .badge-err { background:#c62828; color:#fff; padding:2px 8px; border-radius:12px; }
 </style>
 </head>
 <body>
 <h1>Cluster Health Details</h1>
-<h2>Recent Events (last $MaxEventHours h)</h2>
+<div class="card">
+  <p><strong>Cluster:</strong> $($jsonObj.ClusterName)</p>
+  <p><strong>Generated:</strong> $($jsonObj.Timestamp)</p>
+  <p><strong>Overall State:</strong> <span class="badge" style="background:$badgeColorDetail">$($jsonObj.OverallState)</span></p>
+  <div class="nav">
+    <a href="HealthSummary.html">Back to overview</a> |
+    <a href="HealthSummary.json">Download JSON</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Quorum & Witness</h2>
+  <table>
+    <tr><th>Quorum Type</th><td>$($jsonObj.Quorum.QuorumType)</td></tr>
+    <tr><th>Witness Resource</th><td>$($jsonObj.Quorum.Witness)</td></tr>
+    <tr><th>Witness Present</th><td>$([bool]$jsonObj.Witness.Present)</td></tr>
+    <tr><th>Witness State</th><td>$($jsonObj.Witness.State)</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Dynamic Quorum / Resiliency</h2>
+  <table>
+    <tr><th>DynamicQuorumEnabled</th><td>$($jsonObj.DynamicQuorum.DynamicQuorumEnabled)</td></tr>
+    <tr><th>LowerQuorumPriorityNodeId</th><td>$($jsonObj.DynamicQuorum.LowerQuorumPriorityNodeId)</td></tr>
+    <tr><th>WitnessDynamicWeight</th><td>$($jsonObj.DynamicQuorum.WitnessDynamicWeight)</td></tr>
+    <tr><th>QuarantineDuration</th><td>$($jsonObj.DynamicQuorum.QuarantineDuration)</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Nodes</h2>
+  <table>
+    <tr><th>Name</th><th>State</th><th>DrainStatus</th><th>Paused</th><th>DynamicWeight</th></tr>
 "@
+
+        foreach ($n in $jsonObj.Nodes) {
+            $paused = if ($n.IsPaused) { 'Yes' } else { 'No' }
+            $detailsHtml += "<tr><td>$($n.Name)</td><td>$($n.State)</td><td>$($n.DrainStatus)</td><td>$paused</td><td>$($n.DynamicWeight)</td></tr>`n"
+        }
+
+        $detailsHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Networks</h2>
+  <table>
+    <tr><th>Name</th><th>State</th><th>Role</th><th>Address</th><th>Metric</th></tr>
+"@
+
+        foreach ($net in $jsonObj.Networks) {
+            $detailsHtml += "<tr><td>$($net.Name)</td><td>$($net.State)</td><td>$($net.Role)</td><td>$($net.Address)</td><td>$($net.Metric)</td></tr>`n"
+        }
+
+        $detailsHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Resource Groups</h2>
+  <table>
+    <tr><th>Name</th><th>State</th><th>OwnerNode</th><th>PreferredOwners</th></tr>
+"@
+
+        foreach ($g in $jsonObj.ResourceGroups) {
+            $pref = if ($g.PreferredOwners) { ($g.PreferredOwners -join ', ') } else { '' }
+            $detailsHtml += "<tr><td>$($g.Name)</td><td>$($g.State)</td><td>$($g.OwnerNode)</td><td>$pref</td></tr>`n"
+        }
+
+        $detailsHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Resources</h2>
+  <table>
+    <tr><th>Name</th><th>Type</th><th>State</th><th>Group</th><th>OwnerNode</th><th>Critical</th></tr>
+"@
+
+        foreach ($r in $jsonObj.Resources) {
+            $crit = if ($r.IsCritical) { 'Yes' } else { 'No' }
+            $detailsHtml += "<tr><td>$($r.Name)</td><td>$($r.ResourceType)</td><td>$($r.State)</td><td>$($r.OwnerGroup)</td><td>$($r.OwnerNode)</td><td>$crit</td></tr>`n"
+        }
+
+        $detailsHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Cluster Shared Volumes (CSV)</h2>
+  <table>
+    <tr><th>Name</th><th>FriendlyName</th><th>OwnerNode</th><th>State</th><th>Redirected I/O</th></tr>
+"@
+
+        foreach ($csv in $jsonObj.CSVs) {
+            $redir = if ($csv.RedirectedIO) { "<span class='badge-warn'>Yes</span>" } else { "<span class='badge-ok'>No</span>" }
+            $detailsHtml += "<tr><td>$($csv.Name)</td><td>$([string]$csv.FriendlyName)</td><td>$($csv.OwnerNode)</td><td>$($csv.State)</td><td>$redir</td></tr>`n"
+        }
+
+        $detailsHtml += @"
+  </table>
+</div>
+
+<div class="card">
+  <h2>Recent Events (last $MaxEventHours h)</h2>
+"@
+
         foreach ($ev in $jsonObj.RecentEvents) {
             $detailsHtml += "<details><summary><strong>Node:</strong> $($ev.Node) — <em>$($ev.Count) events</em></summary>`n"
-            $detailsHtml += "<table><tr><th>Time</th><th>Provider</th><th>ID</th><th>Level</th><th>Message</th></tr>`n"
+            $detailsHtml += "<div class='codebox'>"
             foreach ($e in $ev.Sample) {
-                $levelBadge = switch ($e.LevelDisplayName) {
-                    'Error'   { "<span class='badge-err'>Error</span>" }
-                    'Warning' { "<span class='badge-warn'>Warning</span>" }
-                    default   { "<span class='badge-ok'>$($e.LevelDisplayName)</span>" }
-                }
-                $msgShort = if ($e.Message.Length -gt 80) { ($e.Message.Substring(0,80) + '...') } else { $e.Message }
-                $tooltip = Encode-ForHtml -Text $e.Message
-                $detailsHtml += "<tr><td>$($e.TimeCreated)</td><td>$($e.ProviderName)</td><td>$($e.Id)</td><td>$levelBadge</td><td title='$tooltip'>$msgShort</td></tr>`n"
+                $line = "[{0}] {1} Id={2} Level={3} — {4}" -f $e.TimeCreated, $e.ProviderName, $e.Id, $e.LevelDisplayName, (Encode-ForHtml -Text $e.Message)
+                $detailsHtml += "$line<br/>"
             }
-            $detailsHtml += "</table></details>`n"
+            $detailsHtml += "</div></details>`n"
         }
-        $detailsHtml += "</body></html>"
+
+        $detailsHtml += @"
+</div>
+
+<div class="card">
+  <h2>Findings</h2>
+  <ul>
+"@
+
+        foreach ($f in $jsonObj.Findings) {
+            $cls = if ($f.Level -eq 'Error') { 'error' } elseif ($f.Level -eq 'Warning') { 'warning' } else { '' }
+            $detailsHtml += "<li class='$cls'>[$($f.Level)] $([string]$f.Message)</li>`n"
+        }
+
+        $detailsHtml += @"
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Recommendations</h2>
+  <ul>
+"@
+
+        foreach ($rec in $jsonObj.Recommendations) {
+            $detailsHtml += "<li>$([string]$rec)</li>`n"
+        }
+
+        $detailsHtml += @"
+  </ul>
+</div>
+
+<div class="footer">
+  <em>Rendered from HealthSummary.json. No state changes performed.</em>
+</div>
+</body>
+</html>
+"@
+
         $detailsHtml | Out-File -FilePath $detailsPath -Encoding UTF8
 
-        Write-Host "Reports generated:"
+        # Console outputs
         Write-Host "JSON   : $jsonPath"
         Write-Host "HTML   : $htmlPath"
         Write-Host "Detail : $detailsPath"
