@@ -80,6 +80,12 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 
 ---
 
+## ⚡ Performance
+- [IIS Web Server Performance Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISWebServerPerformance.md)
+- [SQL Server Performance Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/SQLServerPerformance.md)
+
+---
+
 ## 📝 Powershell
 - [Hyper-V Cheatsheet](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Hyper-V_CheatSheet.md)
 - [List SSL Certificates](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/Powershell-List-Certs.md)
