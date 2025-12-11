@@ -81,6 +81,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 ---
 
 ## ⚡ Performance
+- [Generic Server Performance Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WindowsServerPerformance.md)
 - [IIS Web Server Performance Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISWebServerPerformance.md)
 - [SQL Server Performance Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/SQLServerPerformance.md)
 

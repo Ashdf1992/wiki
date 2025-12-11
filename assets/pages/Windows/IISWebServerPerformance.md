@@ -81,45 +81,98 @@ Write-Host ("-" * 40) -ForegroundColor Yellow
 $alerts = @()
 
 # CPU
-if ($cpu.Average -gt 80) { $alerts += "High CPU usage ($($cpu.Average)%) - Investigate running processes and application pools." }
+if ($cpu.Average -gt 80) { 
+    $alerts += "High CPU usage ($($cpu.Average)%)`n" +
+              "   Description: Sustained CPU above 80% indicates the server is under heavy processing load, often from inefficient .NET code, large responses, or high traffic volumes.`n" +
+              "   Resolution Ideas:`n" +
+              "     - Use Performance Monitor or Resource Monitor to identify top CPU-consuming w3wp.exe processes (application pools).`n" +
+              "     - Enable Failed Request Tracing in IIS to capture slow requests (> certain threshold).`n" +
+              "     - Review application code for inefficiencies (e.g., loops, large data processing).`n" +
+              "     - Consider scaling out (add more servers) or optimizing queries if backend database is involved.`n" +
+              "     - Recycle overloaded application pools manually or adjust recycling settings."
+}
 
 # Memory
-if ($memUsedPct -gt 85) { $alerts += "High memory usage ($memUsedPct%) - Consider adding RAM or checking for memory leaks." }
+if ($memUsedPct -gt 85) { 
+    $alerts += "High memory usage ($memUsedPct%)`n" +
+              "   Description: Memory usage above 85% can lead to paging, reduced performance, and potential application pool crashes.`n" +
+              "   Resolution Ideas:`n" +
+              "     - Check for memory leaks in .NET applications (use dotMemory or DebugDiag).`n" +
+              "     - Review large session state usage or caching strategies.`n" +
+              "     - Increase physical RAM if possible.`n" +
+              "     - Limit memory per application pool (Rapid-Fail Protection settings).`n" +
+              "     - Recycle application pools on memory thresholds."
+}
 
 # ASP.NET Queue (if available)
 $queueCounter = $counters.CounterSamples | Where-Object { $_.Path -like "*Requests In Application Queue*" }
 if ($queueCounter -and ($queueCounter | Measure-Object -Average CookedValue).Average -gt 10) {
     $queueAvg = ($queueCounter | Measure-Object -Average CookedValue).Average
-    $alerts += "High ASP.NET request queue ($([math]::Round($queueAvg,1))) - Application pools may be overloaded or slow."
+    $alerts += "High ASP.NET request queue ($([math]::Round($queueAvg,1)))`n" +
+              "   Description: Requests are backing up in the queue, meaning worker processes are saturated and cannot handle incoming traffic quickly enough.`n" +
+              "   Resolution Ideas:`n" +
+              "     - Increase the number of worker processes (web garden) or queue length limits in machine.config.`n" +
+              "     - Identify slow requests via IIS logs or Failed Request Tracing.`n" +
+              "     - Optimize slow backend calls (database, web services).`n" +
+              "     - Scale up CPU/RAM or scale out to additional servers.`n" +
+              "     - Check application pool CPU throttling settings."
 }
 
 # Current Connections
 $connCounter = $counters.CounterSamples | Where-Object { $_.Path -like "*Current Connections*" }
 if ($connCounter -and ($connCounter | Measure-Object -Average CookedValue).Average -gt 1000) {
     $connAvg = ($connCounter | Measure-Object -Average CookedValue).Average
-    $alerts += "High current connections ($([math]::Round($connAvg,0))) - Possible traffic spike or slow responses."
+    $alerts += "High current connections ($([math]::Round($connAvg,0)))`n" +
+              "   Description: A large number of simultaneous connections can exhaust resources, especially with slow clients or keep-alive issues.`n" +
+              "   Resolution Ideas:`n" +
+              "     - Review connection timeouts and keep-alive settings in IIS.`n" +
+              "     - Check for traffic spikes or potential DoS (review IIS logs for source IPs).`n" +
+              "     - Implement load balancing if not already in place.`n" +
+              "     - Optimize client-side code to close connections promptly.`n" +
+              "     - Consider HTTP/2 or compression to reduce connection overhead."
 }
 
 # Request Execution Time (if available)
 $execTime = $counters.CounterSamples | Where-Object { $_.Path -like "*Request Execution Time*" }
 if ($execTime -and ($execTime | Measure-Object -Average CookedValue).Average -gt 2000) {
     $execAvg = ($execTime | Measure-Object -Average CookedValue).Average
-    $alerts += "Slow ASP.NET request execution time ($([math]::Round($execAvg/1000,2)) sec avg) - Review application code or database performance."
+    $alerts += "Slow ASP.NET request execution time ($([math]::Round($execAvg/1000,2)) sec avg)`n" +
+              "   Description: Average request processing time is high, leading to poor user experience and potential queuing.`n" +
+              "   Resolution Ideas:`n" +
+              "     - Enable and review Failed Request Tracing for requests exceeding thresholds.`n" +
+              "     - Profile application code (Visual Studio profiler or dotTrace).`n" +
+              "     - Optimize database queries or external service calls.`n" +
+              "     - Enable output caching or compression in IIS.`n" +
+              "     - Check for blocking I/O operations in code."
 }
 
 if ($alerts.Count -eq 0) {
     Write-Host "   No critical performance issues detected at this time." -ForegroundColor Green
 }
 else {
-    foreach ($alert in $alerts) {
-        Write-Host "   • $alert" -ForegroundColor Red
-    }
+    Write-Host "   The following performance issues have been detected:" -ForegroundColor Red
     Write-Host ""
-    Write-Host "   Recommendations:" -ForegroundColor Cyan
-    Write-Host "     - Review IIS Application Pools for recycling settings and worker processes."
-    Write-Host "     - Check IIS logs (%SystemDrive%\inetpub\logs\LogFiles) for slow requests."
-    Write-Host "     - Use Failed Request Tracing (if enabled) for detailed diagnostics."
-    Write-Host "     - Consider Resource Monitor or Performance Monitor for deeper analysis."
+    foreach ($alert in $alerts) {
+        $lines = $alert -split "`n"
+        foreach ($line in $lines) {
+            if ($line.Trim().StartsWith("Description:") -or $line.Trim().StartsWith("Resolution Ideas:")) {
+                Write-Host "   $($line.Trim())" -ForegroundColor Yellow
+            }
+            elseif ($line.Trim().StartsWith("- ") -or $line.Trim().StartsWith("  - ")) {
+                Write-Host "     $($line.Trim())" -ForegroundColor Gray
+            }
+            else {
+                Write-Host "   • $line" -ForegroundColor Red
+            }
+        }
+        Write-Host ""
+    }
+    Write-Host "   General Recommendations:" -ForegroundColor Cyan
+    Write-Host "     - Review IIS logs (%SystemDrive%\inetpub\logs\LogFiles) for patterns in slow/error requests."
+    Write-Host "     - Use tools like Failed Request Tracing, Performance Monitor, or Application Insights for deeper analysis."
+    Write-Host "     - Consider regular application pool recycling schedules."
+    Write-Host "     - Test under load using tools like JMeter or Azure Load Testing."
+    Write-Host "     - Ensure Windows/IIS and .NET Framework are fully patched."
 }
 
 Write-Host ""
