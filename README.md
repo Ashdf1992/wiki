@@ -2,6 +2,10 @@
 
 A curated collection of technical articles, guides, and resources for Windows, Linux, Bacula, Databases, and more.
 
+## Whats New
+[Latest Edits](https://github.com/Ashdf1992/wiki/commits/main/)
+
+
 ---
 
 ## Table of Contents
