@@ -1,7 +1,7 @@
 # DFS Cheatsheet
 
 ## Replication Summary for All DFS Members
-```Powershell
+```Powershell 2
 # Get all DFS Replication Groups
 $RGGroups = Get-DfsReplicationGroup
 
