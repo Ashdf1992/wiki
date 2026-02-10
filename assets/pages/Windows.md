@@ -18,6 +18,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 - [Check AD Services](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/AD-Services.md)
 - [Domain Controller Health Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DC-Healthcheck.md)
 - [Domain Controller Interconnectivity Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/DC-NetworkCheck.md)
+- [AD User Lock Out Check](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/ADUserLockoutCheck.md)
 
 ---
 
