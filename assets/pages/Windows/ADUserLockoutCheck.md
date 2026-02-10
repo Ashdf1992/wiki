@@ -2,7 +2,7 @@
 
 ```Powershell
 # =============================================================================
-#   Active Directory Account Lockout Checker
+#   Active Directory Account Lockout Checker - Enhanced
 #   Professional version for client support requests
 #   Run directly in PowerShell ISE (paste and press F5)
 # =============================================================================
@@ -66,21 +66,44 @@ if ($lockedAccounts.Count -eq 0) {
 }
 
 # ------------------------------------------------------------------
-# 3. Get recent lockout events (Event ID 4740) from PDC
+# 3. Get lockout events (Event ID 4740) from PDC
 # ------------------------------------------------------------------
-$hoursBack = Read-Host "`nHow many hours back should we check lockout events? (default: 48)"
+Write-Host "`n📋 Lockout event lookup (Event ID 4740)" -ForegroundColor Cyan
+Write-Host "Enter number of hours back to check (e.g. 24, 72), or type 'all' for all available events" -ForegroundColor White
+$input = Read-Host "Hours back or 'all' (default: 48)"
 
-if ([string]::IsNullOrWhiteSpace($hoursBack)) { $hoursBack = 48 }
-$startTime = (Get-Date).AddHours(-$hoursBack)
+$useAllEvents = $false
+$hoursBack = 48
 
-Write-Host "`n📋 Retrieving lockout events (Event ID 4740) from the last $hoursBack hours on $dc..." -ForegroundColor Cyan
+if ([string]::IsNullOrWhiteSpace($input)) {
+    $hoursBack = 48
+} elseif ($input -match '^\d+$') {
+    $hoursBack = [int]$input
+} elseif ($input -eq 'all' -or $input -eq 'ALL' -or $input -eq 'All') {
+    $useAllEvents = $true
+    Write-Host "→ Retrieving ALL available lockout events (this may take a moment on busy DCs)" -ForegroundColor Magenta
+} else {
+    Write-Host "→ Unrecognised input — falling back to default 48 hours" -ForegroundColor Yellow
+    $hoursBack = 48
+}
+
+Write-Host "`nRetrieving lockout events from $dc..." -ForegroundColor Cyan
 
 try {
-    $events = Get-WinEvent -ComputerName $dc -FilterHashtable @{
+    $filter = @{
         LogName   = 'Security'
         ID        = 4740
-        StartTime = $startTime
-    } -ErrorAction Stop
+    }
+
+    if (-not $useAllEvents) {
+        $startTime = (Get-Date).AddHours(-$hoursBack)
+        $filter['StartTime'] = $startTime
+        Write-Host "→ Time range: last $hoursBack hours" -ForegroundColor White
+    } else {
+        Write-Host "→ Time range: all available events" -ForegroundColor White
+    }
+
+    $events = Get-WinEvent -ComputerName $dc -FilterHashtable $filter -ErrorAction Stop
 
     $eventDetails = $events | ForEach-Object {
         [PSCustomObject]@{
@@ -95,14 +118,15 @@ try {
         $eventDetails | Sort-Object Time -Descending | Format-Table -AutoSize
         
         Write-Host "`n💡 Key Information:" -ForegroundColor Magenta
-        Write-Host "   • The 'Source Computer' is the device that generated the bad password attempts." -ForegroundColor White
-        Write-Host "   • Common causes: outdated credentials on workstations, services, mapped drives, phones, or VPNs." -ForegroundColor White
+        Write-Host "   • 'Source Computer' = device responsible for the bad password attempts" -ForegroundColor White
+        Write-Host "   • Common culprits: old credentials in services, mapped drives, mobile devices, scheduled tasks, or stale VPN sessions" -ForegroundColor White
+        Write-Host "   • If many events → look for patterns (same user + same source over time)" -ForegroundColor White
     } else {
-        Write-Host "✅ No lockout events found in the selected time range." -ForegroundColor Green
+        Write-Host "✅ No lockout events found in the selected range." -ForegroundColor Green
     }
 } catch {
     Write-Host "⚠️  Could not retrieve events from $dc. Error: $($_.Exception.Message)" -ForegroundColor Yellow
-    Write-Host "   (Ensure you have permission and WinRM/Firewall allows remote event log access)" -ForegroundColor Yellow
+    Write-Host "   Common fixes: run as Domain Admin, check WinRM/firewall rules, or try running directly on the PDC" -ForegroundColor Yellow
 }
 
 # ------------------------------------------------------------------
@@ -133,6 +157,6 @@ if ($lockedAccounts.Count -gt 0) {
 # ------------------------------------------------------------------
 Write-Host "`n=============================================" -ForegroundColor Cyan
 Write-Host "✅ Analysis complete!" -ForegroundColor Green
-Write-Host "You can copy the entire output above and paste it into your support ticket." -ForegroundColor White
-Write-Host "💡 Tip: If lockouts continue, investigate the 'Source Computer' for stale credentials." -ForegroundColor Magenta
+Write-Host "You can copy the entire output above and paste it into your support ticket or email." -ForegroundColor White
+Write-Host "💡 Next step if lockouts persist: focus on the most frequent 'Source Computer(s)' and clear cached/stale credentials there." -ForegroundColor Magenta
 ```
