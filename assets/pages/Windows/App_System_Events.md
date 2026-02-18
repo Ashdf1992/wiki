@@ -1,4 +1,4 @@
-# Better Event Viewer (HTML)
+# Windows Event Report (HTML)
 
 <p align="center">
     <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WindowsEventReport/WindowsErrorReport.png"/>
