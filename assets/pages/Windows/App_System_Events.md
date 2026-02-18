@@ -1,4 +1,4 @@
-# Retrieve Critical, Error, and Warning Events for a specified time
+# Better Event Viewer (HTML)
 
 <p align="center">
     <img src="https://github.com/Ashdf1992/wiki/blob/main/assets/images/WindowsEventReport/WindowsErrorReport.png"/>
