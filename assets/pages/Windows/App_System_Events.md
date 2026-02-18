@@ -326,6 +326,111 @@ details summary{cursor:pointer; color:var(--accent)}
 pre.msg{white-space:pre-wrap; margin:10px 0 0; padding:10px; border-radius:10px;
         border:1px solid var(--border); background:rgba(0,0,0,.25)}
 .footer{margin-top:14px;color:var(--muted);font-size:12px}
+
+/* --- Performance: hide rows via class (used by JS) --- */
+.is-hidden { display: none !important; }
+
+/* Optional: visual hint while filtering large sets */
+body.is-filtering * { cursor: progress; }
+
+/* --- Animations (subtle, modern) --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card { animation: fadeUp .35s ease-out both; }
+tbody tr { animation: fadeUp .20s ease-out both; }
+
+/* Smooth hover + focus affordances */
+.badge, .pill, input[type="search"], select {
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.badge:hover, .pill:hover { transform: translateY(-1px); }
+
+/* Nicer focus for keyboard navigation */
+input[type="search"]:focus, select:focus {
+  border-color: rgba(110,168,254,.55);
+  box-shadow: 0 0 0 3px rgba(110,168,254,.18);
+}
+
+/* --- Responsive layout improvements --- */
+@media (max-width: 860px) {
+  .toolbar { gap: 12px; }
+  .search { flex-wrap: wrap; }
+  .search > * { flex: 1 1 220px; }
+  .footer { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .kpis .kpi { min-width: 140px; }
+  thead th:nth-child(5), tbody td:nth-child(5) { display: none; } /* hide Provider on very small screens */
+  .card { padding: 14px; }
+}
+
+/* Allow horizontal scroll for table on narrow screens */
+.card { overflow-x: auto; }
+table { min-width: 900px; }
+
+/* --- Respect reduced motion preferences --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+} /* prefers-reduced-motion guidance [5](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)[6](https://www.w3.org/WAI/WCAG21/Techniques/css/C39.html) */
+/* --- Sortable headers --- */
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 26px;
+}
+th.sortable .sort-ind {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-52%);
+  opacity: .65;
+  font-size: 11px;
+}
+th.sortable.sorted-asc .sort-ind::after { content: "▲"; }
+th.sortable.sorted-desc .sort-ind::after { content: "▼"; }
+
+/* --- Column filter row --- */
+thead tr.col-filters th {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(17,26,46,.96);
+}
+thead tr.col-filters input,
+thead tr.col-filters select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  outline: none;
+  font-size: 12px;
+}
+thead tr.col-filters .range {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Make header & filter row sticky together */
+thead th { position: sticky; top: 0; z-index: 2; }
+thead tr.col-filters th { position: sticky; top: 42px; z-index: 2; }
+
+/* Hide rows quickly */
+.is-hidden { display:none !important; }
+
+/* Responsive: allow horizontal scroll */
+.card { overflow-x:auto; }
+table { min-width: 900px; }
 </style>
 </head>
 <body>
@@ -381,33 +486,300 @@ pre.msg{white-space:pre-wrap; margin:10px 0 0; padding:10px; border-radius:10px;
   </div>
 
 <script>
-(function(){
+
+(function () {
+  const table = document.getElementById('events');
+  const thead = table.querySelector('thead');
+  const headerRow = thead.querySelector('tr'); // existing header row
+  const tbody = table.querySelector('tbody');
+
+  // ---- Helpers ----
+  function debounce(fn, wait) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), wait);
+    };
+  } // Debounce via setTimeout/clearTimeout [6](https://www.geeksforgeeks.org/javascript/debouncing-in-javascript/)
+
+  function parseUtcFromYmdHms(s) {
+    // expects "yyyy-MM-dd HH:mm:ss"
+    // robust parsing (avoids Date.parse quirks)
+    const m = String(s || '').match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})$/);
+    if (!m) return NaN;
+    return Date.UTC(+m[1], (+m[2]) - 1, +m[3], +m[4], +m[5], +m[6]);
+  }
+
+  function naturalCompare(a, b) {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+  }
+
+  // ---- Build row cache (keeps filtering/sorting fast) ----
+  let rows = Array.from(tbody.querySelectorAll('tr')).map((tr) => {
+    const cells = tr.children;
+
+    const log = (cells[0]?.innerText || '').trim();
+    const timeStr = (cells[1]?.innerText || '').trim();
+    const idStr = (cells[2]?.innerText || '').trim();
+    const level = (cells[3]?.innerText || '').trim();
+    const provider = (cells[4]?.innerText || '').trim();
+
+    // message is inside details/pre, textContent includes it; keep full search text cached
+    const fullText = (tr.textContent || '').toLowerCase();
+
+    return {
+      el: tr,
+      log,
+      timeStr,
+      timeMs: parseUtcFromYmdHms(timeStr),
+      id: parseInt(idStr, 10),
+      idStr,
+      level,
+      provider,
+      fullText
+    };
+  });
+
+  // ---- Insert column-filter row into THEAD (no PowerShell HTML changes required) ----
+  const filterRow = document.createElement('tr');
+  filterRow.className = 'col-filters';
+
+  // current filter state
+  const state = {
+    global: '',
+    log: '',
+    level: '',
+    timeFrom: '',
+    timeTo: '',
+    idMin: '',
+    idMax: '',
+    provider: '',
+    // if you want per-column text filters for others later, add them here
+  };
+
+  // Build option sets for selects
+  const uniq = (arr) => Array.from(new Set(arr)).sort(naturalCompare);
+  const logOptions = uniq(rows.map(r => r.log).filter(Boolean));
+  const lvlOptions = uniq(rows.map(r => r.level).filter(Boolean));
+
+  function makeSelect(options, placeholder) {
+    const sel = document.createElement('select');
+    const opt0 = document.createElement('option');
+    opt0.value = '';
+    opt0.textContent = placeholder;
+    sel.appendChild(opt0);
+    options.forEach(v => {
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = v;
+      sel.appendChild(o);
+    });
+    return sel;
+  }
+
+  function makeInput(ph) {
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = ph;
+    return inp;
+  }
+
+  // Create 6 filter cells matching columns: Log, TimeCreated, ID, Level, Provider, Message
+  // Log filter (select)
+  {
+    const th = document.createElement('th');
+    const sel = makeSelect(logOptions, 'All logs');
+    sel.addEventListener('change', () => { state.log = sel.value; applyFilterChunked(); });
+    th.appendChild(sel);
+    filterRow.appendChild(th);
+  }
+
+  // TimeCreated filter (range)
+  {
+    const th = document.createElement('th');
+    const wrap = document.createElement('div');
+    wrap.className = 'range';
+    const from = makeInput('From (yyyy-mm-dd hh:mm:ss)');
+    const to = makeInput('To (yyyy-mm-dd hh:mm:ss)');
+    from.addEventListener('input', debounce(() => { state.timeFrom = from.value.trim(); applyFilterChunked(); }, 180));
+    to.addEventListener('input', debounce(() => { state.timeTo = to.value.trim(); applyFilterChunked(); }, 180));
+    wrap.appendChild(from); wrap.appendChild(to);
+    th.appendChild(wrap);
+    filterRow.appendChild(th);
+  }
+
+  // ID filter (min/max)
+  {
+    const th = document.createElement('th');
+    const wrap = document.createElement('div');
+    wrap.className = 'range';
+    const min = makeInput('Min');
+    const max = makeInput('Max');
+    min.addEventListener('input', debounce(() => { state.idMin = min.value.trim(); applyFilterChunked(); }, 180));
+    max.addEventListener('input', debounce(() => { state.idMax = max.value.trim(); applyFilterChunked(); }, 180));
+    wrap.appendChild(min); wrap.appendChild(max);
+    th.appendChild(wrap);
+    filterRow.appendChild(th);
+  }
+
+  // Level filter (select)
+  {
+    const th = document.createElement('th');
+    const sel = makeSelect(lvlOptions, 'All levels');
+    sel.addEventListener('change', () => { state.level = sel.value; applyFilterChunked(); });
+    th.appendChild(sel);
+    filterRow.appendChild(th);
+  }
+
+  // Provider filter (text contains)
+  {
+    const th = document.createElement('th');
+    const inp = makeInput('Filter provider...');
+    inp.addEventListener('input', debounce(() => { state.provider = inp.value.trim().toLowerCase(); applyFilterChunked(); }, 180));
+    th.appendChild(inp);
+    filterRow.appendChild(th);
+  }
+
+  // Message filter (use global search box already present, so leave empty / hint)
+  {
+    const th = document.createElement('th');
+    const hint = document.createElement('div');
+    hint.style.color = 'var(--muted)';
+    hint.style.fontSize = '12px';
+    hint.textContent = 'Use global search above';
+    th.appendChild(hint);
+    filterRow.appendChild(th);
+  }
+
+  thead.appendChild(filterRow);
+
+  // ---- Wire global search + existing dropdowns if present (your UI already has these) ----
   const q = document.getElementById('q');
   const logFilter = document.getElementById('logFilter');
   const levelFilter = document.getElementById('levelFilter');
-  const tbody = document.querySelector('#events tbody');
-  const rows = Array.from(tbody.querySelectorAll('tr'));
 
-  function apply(){
-    const term = (q.value || '').toLowerCase();
-    const log = logFilter.value;
-    const lvl = levelFilter.value;
+  if (q) q.addEventListener('input', debounce(() => { state.global = (q.value || '').toLowerCase(); applyFilterChunked(); }, 180));
+  if (logFilter) logFilter.addEventListener('change', () => { state.log = logFilter.value; applyFilterChunked(); });
+  if (levelFilter) levelFilter.addEventListener('change', () => { state.level = levelFilter.value; applyFilterChunked(); });
 
-    rows.forEach(r=>{
-      const text = r.innerText.toLowerCase();
-      const logCell = r.children[0].innerText.trim();
-      const lvlCell = r.children[3].innerText.trim();
+  // ---- Filtering (chunked with requestAnimationFrame for responsiveness) ----
+  let filterRaf = null;
+  function applyFilterChunked() {
+    if (filterRaf) cancelAnimationFrame(filterRaf);
 
-      const okTerm = !term || text.indexOf(term) !== -1;
-      const okLog  = !log || logCell === log;
-      const okLvl  = !lvl || lvlCell === lvl;
+    const CHUNK = 350;
+    let i = 0;
 
-      r.style.display = (okTerm && okLog && okLvl) ? '' : 'none';
-    });
+    // Pre-parse numeric/time ranges once per run
+    const timeFromMs = state.timeFrom ? parseUtcFromYmdHms(state.timeFrom) : NaN;
+    const timeToMs = state.timeTo ? parseUtcFromYmdHms(state.timeTo) : NaN;
+    const idMin = state.idMin ? parseInt(state.idMin, 10) : NaN;
+    const idMax = state.idMax ? parseInt(state.idMax, 10) : NaN;
+
+    function step() {
+      const end = Math.min(i + CHUNK, rows.length);
+      for (; i < end; i++) {
+        const r = rows[i];
+
+        const okGlobal = !state.global || r.fullText.indexOf(state.global) !== -1;
+        const okLog = !state.log || r.log === state.log;
+        const okLvl = !state.level || r.level === state.level;
+
+        const okProvider = !state.provider || r.provider.toLowerCase().indexOf(state.provider) !== -1;
+
+        const okTimeFrom = isNaN(timeFromMs) || (!isNaN(r.timeMs) && r.timeMs >= timeFromMs);
+        const okTimeTo   = isNaN(timeToMs)   || (!isNaN(r.timeMs) && r.timeMs <= timeToMs);
+
+        const okIdMin = isNaN(idMin) || (!isNaN(r.id) && r.id >= idMin);
+        const okIdMax = isNaN(idMax) || (!isNaN(r.id) && r.id <= idMax);
+
+        const show = okGlobal && okLog && okLvl && okProvider && okTimeFrom && okTimeTo && okIdMin && okIdMax;
+        r.el.classList.toggle('is-hidden', !show);
+      }
+
+      if (i < rows.length) filterRaf = requestAnimationFrame(step);
+      else filterRaf = null;
+    }
+
+    filterRaf = requestAnimationFrame(step);
   }
-  q.addEventListener('input', apply);
-  logFilter.addEventListener('change', apply);
-  levelFilter.addEventListener('change', apply);
+  // requestAnimationFrame runs callbacks before repaint [3](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
+
+  // ---- Sorting (click header; supports asc/desc; chunked DOM re-append) ----
+  const colDefs = [
+    { name: 'Log',        key: r => r.log,     cmp: (a,b)=>naturalCompare(a.log,b.log) },
+    { name: 'TimeCreated',key: r => r.timeMs,  cmp: (a,b)=>(a.timeMs - b.timeMs) || naturalCompare(a.timeStr,b.timeStr) },
+    { name: 'ID',         key: r => r.id,      cmp: (a,b)=>(a.id - b.id) || naturalCompare(a.idStr,b.idStr) },
+    { name: 'Level',      key: r => r.level,   cmp: (a,b)=>naturalCompare(a.level,b.level) },
+    { name: 'Provider',   key: r => r.provider,cmp: (a,b)=>naturalCompare(a.provider,b.provider) },
+    { name: 'Message',    key: r => r.fullText,cmp: (a,b)=>naturalCompare(a.fullText,b.fullText), noSort: true }
+  ];
+
+  let sortState = { index: -1, dir: 1 }; // dir: 1 asc, -1 desc
+  const ths = Array.from(headerRow.querySelectorAll('th'));
+
+  ths.forEach((th, idx) => {
+    const def = colDefs[idx];
+    if (!def || def.noSort) return;
+
+    th.classList.add('sortable');
+    const ind = document.createElement('span');
+    ind.className = 'sort-ind';
+    th.appendChild(ind);
+
+    th.addEventListener('click', () => {
+      // toggle direction if same column, else default to asc
+      const same = (sortState.index === idx);
+      sortState.index = idx;
+      sortState.dir = same ? (sortState.dir * -1) : 1;
+
+      // visual state
+      ths.forEach(h => h.classList.remove('sorted-asc','sorted-desc'));
+      th.classList.add(sortState.dir === 1 ? 'sorted-asc' : 'sorted-desc');
+
+      sortRowsChunked(def, sortState.dir);
+    });
+  });
+
+  let sortRaf = null;
+  function sortRowsChunked(def, dir) {
+    if (sortRaf) cancelAnimationFrame(sortRaf);
+
+    // Stable-ish sort by decorating with original index
+    const decorated = rows.map((r, i) => ({ r, i }));
+    decorated.sort((A, B) => {
+      const base = def.cmp(A.r, B.r);
+      if (base !== 0) return base * dir;
+      return (A.i - B.i); // tiebreaker: original order
+    });
+
+    // Update primary rows array order (used by filter chunking)
+    rows = decorated.map(x => x.r);
+
+    // Re-append DOM nodes in chunks for performance
+    const CHUNK = 400;
+    let i = 0;
+
+    function step() {
+      const frag = document.createDocumentFragment();
+      const end = Math.min(i + CHUNK, rows.length);
+      for (; i < end; i++) frag.appendChild(rows[i].el);
+      tbody.appendChild(frag);
+
+      if (i < rows.length) sortRaf = requestAnimationFrame(step);
+      else {
+        sortRaf = null;
+        // keep current filters applied after reorder
+        applyFilterChunked();
+      }
+    }
+
+    sortRaf = requestAnimationFrame(step);
+  }
+
+  // Initial filter pass (optional)
+  applyFilterChunked();
+
 })();
 </script>
 </body>
@@ -423,19 +795,19 @@ pre.msg{white-space:pre-wrap; margin:10px 0 0; padding:10px; border-radius:10px;
 $export = Read-Host "Optional export: (C)SV, (H)TML, (B)oth, or press Enter to skip"
 switch ($export.ToUpper()) {
     "C" {
-        $AppResults | Export-Csv -Path "$env:USERPROFILE\Desktop\ApplicationEvents.csv" -NoTypeInformation
-        $SysResults | Export-Csv -Path "$env:USERPROFILE\Desktop\SystemEvents.csv" -NoTypeInformation
+        $AppResults | Export-Csv -Path "$env:USERPROFILE\Desktop\ApplicationEvents_$date.csv" -NoTypeInformation
+        $SysResults | Export-Csv -Path "$env:USERPROFILE\Desktop\SystemEvents_$date.csv" -NoTypeInformation
         Write-Host "CSV exports written to Desktop." -ForegroundColor Green
     }
     "H" {
-        $htmlPath = "$env:USERPROFILE\Desktop\EventReport.html"
+        $htmlPath = "$env:USERPROFILE\Desktop\EventReport_$date.html"
         Export-ModernEventHtml -AppResults $AppResults -SysResults $SysResults -Path $htmlPath -StartDateTime $StartDateTime -EndDateTime $EndDateTime
         Write-Host "HTML report written to: $htmlPath" -ForegroundColor Green
         Invoke-Item $htmlPath
     }
     "B" {
-        $AppResults | Export-Csv -Path "$env:USERPROFILE\Desktop\ApplicationEvents.csv" -NoTypeInformation
-        $SysResults | Export-Csv -Path "$env:USERPROFILE\Desktop\SystemEvents.csv" -NoTypeInformation
+        $AppResults | Export-Csv -Path "$env:USERPROFILE\Desktop\ApplicationEvents_$date.csv" -NoTypeInformation
+        $SysResults | Export-Csv -Path "$env:USERPROFILE\Desktop\SystemEvents_$date.csv" -NoTypeInformation
         $htmlPath = "$env:USERPROFILE\Desktop\EventReport_$date.html"
         Export-ModernEventHtml -AppResults $AppResults -SysResults $SysResults -Path $htmlPath -StartDateTime $StartDateTime -EndDateTime $EndDateTime
         Write-Host "CSV + HTML exports written to Desktop." -ForegroundColor Green
