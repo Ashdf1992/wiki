@@ -436,7 +436,7 @@ switch ($export.ToUpper()) {
     "B" {
         $AppResults | Export-Csv -Path "$env:USERPROFILE\Desktop\ApplicationEvents.csv" -NoTypeInformation
         $SysResults | Export-Csv -Path "$env:USERPROFILE\Desktop\SystemEvents.csv" -NoTypeInformation
-        $htmlPath = "$env:USERPROFILE\Desktop\EventReport.html"
+        $htmlPath = "$env:USERPROFILE\Desktop\EventReport_$date.html"
         Export-ModernEventHtml -AppResults $AppResults -SysResults $SysResults -Path $htmlPath -StartDateTime $StartDateTime -EndDateTime $EndDateTime
         Write-Host "CSV + HTML exports written to Desktop." -ForegroundColor Green
         Invoke-Item $htmlPath
