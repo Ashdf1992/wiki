@@ -1143,15 +1143,17 @@ $Source      = "D:\IIS-Content\"
 $Destination = "\\ASH-WEB-02\d$\IIS-Content\"
  
 # Robocopy options:
-# /MIR      - Mirror source to destination (includes subdirectories)
-# /COPYALL  - Copy all file info (data, attributes, timestamps, security, owner, audit)
-# /R:3      - Retry 3 times on failure
-# /W:5      - Wait 5 seconds between retries
-# /XD       - Exclude directory (DfsrPrivate)
-# /LOG      - Optional: log output to a file
-# /MT:16    - Multi-threaded copy (16 threads for speed)
+# /mir      - Mirror source to destination (includes subdirectories)
+# /b - Copies files in backup mode. In backup mode, robocopy overrides file and folder permission settings (ACLs), which might otherwise block access.
+# /e - Copies subdirectories. This option automatically includes empty directories.
+# /copyall  - Copy all file info (data, attributes, timestamps, security, owner, audit)
+# /r:3      - Retry 3 times on failure
+# /w:5      - Wait 5 seconds between retries
+# /xd       - Exclude directory (DfsrPrivate)
+# /log      - Optional: log output to a file
+# /mt:16    - Multi-threaded copy (16 threads for speed)
  
-Robocopy $Source $Destination /TEE /V /MIR /COPYALL /R:3 /W:5 /XD "DfsrPrivate" /MT:16 /LOG:"C:\Robocopy_Preseed.log"
+Robocopy $Source $Destination /tee /v /mir /b /e /copyall /r:3 /w:5 /xd "DfsrPrivate" /mt:16 /log:"C:\Robocopy_Preseed.log"
 ```
 
 ## Clearing the DFS Replication Database
