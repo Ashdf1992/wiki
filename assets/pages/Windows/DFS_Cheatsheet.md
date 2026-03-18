@@ -1,7 +1,7 @@
 # DFS Cheatsheet
 
 ## Replication Summary for All DFS Members
-```Powershell 2
+```Powershell 
 # Get all DFS Replication Groups
 $RGGroups = Get-DfsReplicationGroup
 
@@ -44,7 +44,7 @@ Write-Host " Report Complete" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Cyan
 ```
 
-## Check Replication Backlog (including file names), and Check Replication State
+## Check Replication Backlog (including file names), and Check Replication State V2
 ```Powershell
 #requires -Modules DFSR
 Add-Type -AssemblyName System.Windows.Forms
@@ -1133,6 +1133,56 @@ catch {
     Write-Section "HTML Report"
     Write-Status -Type ERROR -Message ("Failed to generate HTML report: {0}" -f $_.Exception.Message)
 }
+```
+
+## Check Replication Backlog (including file names), and Check Replication State V1
+```Powershell
+# Define source and destination computers
+$sourceComputer = "ASH-WEB-01"
+$destinationComputer = "ASH-WEB-02"
+$replicatedFolder = "IIS-Content"
+
+Write-Host "============================================================" -ForegroundColor Cyan
+Write-Host " DFS Replication Health Check" -ForegroundColor Cyan
+Write-Host "============================================================`n" -ForegroundColor Cyan
+
+# Check DFS Replication Backlog
+Write-Host "Checking DFS Replication Backlog between $sourceComputer and $destinationComputer for folder '$replicatedFolder'..." -ForegroundColor Yellow
+try {
+    $backlog = Get-DfsrBacklog -SourceComputerName $sourceComputer -DestinationComputerName $destinationComputer -GroupName $replicatedFolder -FolderName $replicatedFolder
+    if ($backlog.Count -eq 0) {
+        Write-Host "`n✅ No backlog detected. Replication is up to date." -ForegroundColor Green
+    } else {
+        Write-Host "`n⚠ Backlog detected: $($backlog.Count) files pending replication." -ForegroundColor Red
+        $backlog | Select-Object @{Name="File Name";Expression={$_.FileName}},
+                                   @{Name="Size (KB)";Expression={[math]::Round($_.FileSize/1KB,2)}},
+                                   @{Name="Last Updated";Expression={$_.UpdateTime}} |
+                  Format-Table -AutoSize
+    }
+} catch {
+    Write-Host "`n❌ Error retrieving backlog: $($_.Exception.Message)" -ForegroundColor Red
+}
+
+# Check DFS Replication State
+Write-Host "`nChecking DFS Replication State..." -ForegroundColor Yellow
+try {
+    $state = Get-DfsrState
+    if ($state) {
+        Write-Host "`nCurrent replication activity:" -ForegroundColor Cyan
+        $state | Select-Object @{Name="File Name";Expression={$_.FileName}},
+                                 @{Name="Path";Expression={$_.FilePath}},
+                                 @{Name="Status";Expression={$_.UpdateStatus}} |
+                Format-Table -AutoSize
+    } else {
+        Write-Host "`n✅ No replication activity detected at this time." -ForegroundColor Green
+    }
+} catch {
+    Write-Host "`n❌ Error retrieving replication state: $($_.Exception.Message)" -ForegroundColor Red
+}
+
+Write-Host "`n============================================================" -ForegroundColor Cyan
+Write-Host " Check Complete" -ForegroundColor Cyan
+Write-Host "============================================================" -ForegroundColor Cyan
 ```
 
 ## Pre-seed Data
