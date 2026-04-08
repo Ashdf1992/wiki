@@ -1202,7 +1202,7 @@ $Destination = "\\ASH-WEB-02\d$\IIS-Content\"
 # /log      - Optional: log output to a file
 # /mt:16    - Multi-threaded copy (16 threads for speed)
  
-Robocopy $Source $Destination /tee /v /b /e /copyall /r:3 /w:5 /xd "DfsrPrivate" /mt:16 /log:"C:\Robocopy_Preseed.log"
+robocopy $Source $Destination /e /b /copyall /r:6 /w:5 /MT:64 /xd DfsrPrivate /tee /log:"C:\Robocopy_Preseed.log" /v
 ```
 
 ## Clearing the DFS Replication Database
