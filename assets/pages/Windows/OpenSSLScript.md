@@ -1,5 +1,10 @@
 # OpenSSL Powershell Script
 ## This script will allow you to manage SSL Certificates using OpenSSL. Note that the script must be ran from the same location that the openssl.exe is located
+## Credit (OpenSSL Binaries)
+https://www.firedaemon.com/download-firedaemon-openssl
+
+<br>
+
 ![SQLCMD](../../../assets/images/SSLConverter.png)
 
 ## Method 1 (Easy) - Click here to go to the latest zip folder containing both the script and OpenSSL. Simply right click OpenSSLScript_GUI.ps1 and click on 'Run with PowerShell'
