@@ -1,28 +1,18 @@
 # OpenSSL Powershell Script
 ## This script will allow you to manage SSL Certificates using OpenSSL. Note that the script must be ran from the same location that the openssl.exe is located
+![SQLCMD](../../../assets/images/SSLConverter.png)
 
+## Method 1 (Easy) - Click here to go to the latest zip folder containing both the script and OpenSSL. Simply right click OpenSSLScript_GUI.ps1 and click on 'Run with PowerShell'
+[OpenSSL Powershell Script Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/OpenSSL-Script.zip)
+#### This may not work if running scripts is disabled on your device
+
+<br>
+
+## Method 2 - Ensure you run the below within ISE, from the same directory where you have OpenSSL.exe
 >Open Powershell ISE
 
 >Run the Following
 ```Powershell
-# ============================================================
-# OpenSSL GUI Conversion Tool
-# Author: Ashley / revamped GUI version
-# Purpose:
-#   - Export private key from PFX
-#   - Export certificate from PFX to CRT
-#   - Decrypt encrypted private key
-#   - Convert P7B chain to CRT
-#   - Combine CRT and KEY to PFX
-#   - Combine CRT, KEY and CA Bundle to PFX
-#
-# Notes:
-#   - Designed to run nicely from PowerShell ISE.
-#   - Expects openssl.exe to be in the same directory as this script.
-#   - Uses full paths, so source files do not have to be in the OpenSSL folder.
-# ============================================================
-
-
 # =========================
 # Load assemblies
 # =========================
@@ -1086,6 +1076,5 @@ function Show-OpenSslGui {
 Show-OpenSslGui
 ```
 
-## Alternatively, click here to go to the latest zip folder containing both the script and OpenSSL. Simply right click OpenSSLScript.ps1 and click on 'Run with PowerShell'
-[OpenSSL Powershell Script Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/OpenSSL-Script.zip)
+
 
