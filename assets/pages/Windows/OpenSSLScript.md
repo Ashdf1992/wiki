@@ -4,6 +4,9 @@
 
 ## Method 1 (Easy) - Click here to go to the latest zip folder containing both the script and OpenSSL. Simply right click OpenSSLScript_GUI.ps1 and click on 'Run with PowerShell'
 [OpenSSL Powershell Script Download](https://github.com/Ashdf1992/wiki/blob/main/assets/attachments/OpenSSL-Script.zip)
+#### PFX Password = Current PFX password. If you are creating a PFX, its the password you want to protect the PFX with
+#### 'Export key without encryption' = dont password protect the key when exporting
+#### 'Key Password' only needs to be entered if 'Export key without encryption' is unticked, or if you are creating a PFX that has a password protected key
 #### This may not work if running scripts is disabled on your device
 
 <br>
