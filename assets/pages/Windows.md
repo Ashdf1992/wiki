@@ -55,6 +55,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 - [VSS Writers Summary](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/VSSWriters.md)
 - [Windows Event Report (HTML)](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WindowsEventReport.md)
 - [Windows Server - Roles & Features Sync UI Script](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/WindowsRolesFeaturesSync.md)
+- [Network Change Checker](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/NetworkChange.md)
 
 ---
 
