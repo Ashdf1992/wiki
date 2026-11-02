@@ -71,6 +71,7 @@ A curated collection of Windows administration scripts, troubleshooting guides, 
 - [IIS Site Connections](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISSiteConnections.md)
 - [Find a Website/Webapp binding from the URL](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISSitebinding.md)
 - [Search IIS Log Files](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IISLogFileSearch.md)
+- [IIS IP Abuse DB Dashboard](https://github.com/Ashdf1992/wiki/blob/main/assets/pages/Windows/IPAbuseDBDashboard.md)
 
 ---
 
