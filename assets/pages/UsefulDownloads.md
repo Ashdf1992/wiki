@@ -83,7 +83,7 @@
 
 [Revo Uninstaller](https://portableapps.com/apps/utilities/revo_uninstaller_portable)
 
-[Resource Hacker](https://portableapps.com/apps/utilities/resource-hacker-portable)
+[Resource Hacker](https://portableapps.com/apps/utilities/resource-hacker-portable) or [Resource Cracker](https://www.pelock.com/products/resource-cracker)
 
 [Winmerge](https://portableapps.com/apps/utilities/winmerge_portable)
 
